@@ -141,6 +141,9 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
+//No help, variable specified on the command line.
+CMAKE_PREFIX_PATH:UNINITIALIZED=/usr/local
+
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -217,6 +220,15 @@ MYGAME_VENDORED:BOOL=OFF
 
 //The directory containing a CMake configuration file for SDL3.
 SDL3_DIR:PATH=/usr/local/lib/cmake/SDL3
+
+//The directory containing a CMake configuration file for SDL3_ttf.
+SDL3_ttf_DIR:PATH=/usr/local/lib/cmake/SDL3_ttf
+
+//Path to a file.
+SDL_TTF_INCLUDE_DIR:PATH=SDL_TTF_INCLUDE_DIR-NOTFOUND
+
+//Path to a library.
+SDL_TTF_LIBRARY:FILEPATH=SDL_TTF_LIBRARY-NOTFOUND
 
 //Value Computed by CMake
 ui_BINARY_DIR:STATIC=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build

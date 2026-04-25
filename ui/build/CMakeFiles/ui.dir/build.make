@@ -124,7 +124,8 @@ ui: CMakeFiles/ui.dir/ui.c.o
 ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
 ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
 ui: CMakeFiles/ui.dir/build.make
-ui: /usr/local/lib/libSDL3.so.0.2.10
+ui: /usr/local/lib/libSDL3_ttf.so.0.3.0
+ui: /usr/local/lib/libSDL3.so.0.5.0
 ui: CMakeFiles/ui.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable ui"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ui.dir/link.txt --verbose=$(VERBOSE)

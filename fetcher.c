@@ -38,7 +38,7 @@ size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s)
   return size*nmemb;
 }
 
-cJSON* get_json(const char* region, int admin_level)
+cJSON* get_json(const char* region, int admin_level, int admin_level2)
 {
   CURL *curl = curl_easy_init();
   if(!curl) 
@@ -48,19 +48,21 @@ cJSON* get_json(const char* region, int admin_level)
   }
 
   char query[300];
-  sprintf(query,  "[out:json];area['name'='%s']->.a;relation['boundary'='administrative']['admin_level'='%d'](area.a);out geom;", region, admin_level);
+  sprintf(query,  "[out:json][timeout:180];relation[%s]['boundary'='administrative']['admin_level'='%d'];"
+      "map_to_area->.countryArea;relation['boundary'='administrative']['admin_level'='%d'](area.countryArea);"
+      "out geom;", region, admin_level, admin_level2);
     
   char *encoded_query = curl_easy_escape(curl, query, 0);
   char cache_file[2048];
-  sprintf(cache_file, "cache/%s.json", encoded_query);
+  sprintf(cache_file, "cache/%s_%d_%d.json", region, admin_level, admin_level2);
 
   if (access(cache_file, F_OK) != 0) 
-    fetch_file(query);
+    fetch_file(query, region, admin_level, admin_level2);
  
   return load_json_file(cache_file);
 }
 
-int fetch_file(const char* query)
+int fetch_file(const char* query, const char* region, int admin_level, int admin_level2)
 {
   CURL *curl;
   FILE *fp;
@@ -76,7 +78,7 @@ int fetch_file(const char* query)
 
   char dst[2048];
   mkdir("cache", 0755);
-  sprintf(dst, "cache/%s.json", encoded_query);
+  sprintf(dst, "cache/%s_%d_%d.json", region, admin_level, admin_level2);
 
   printf("Fetching %s -> %s\n", url, dst);
 
@@ -126,7 +128,7 @@ cJSON* load_json_file(const char* filename) {
     if (json == NULL) {
         const char* error_ptr = cJSON_GetErrorPtr();
         if (error_ptr != NULL) {
-            fprintf(stderr, "Error before: %s\n", error_ptr);
+           // fprintf(stderr, "Error before: %s\n", error_ptr);
         }
     }
 

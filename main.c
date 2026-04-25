@@ -7,7 +7,7 @@
 
 int main(void) {
 
-  cJSON* obj = get_json("Catalunya", 7);
+  cJSON* obj = get_json("'ISO3166-1'='ES'", 2, 7);
 
 
 

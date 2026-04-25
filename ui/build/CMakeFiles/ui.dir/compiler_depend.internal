@@ -294,15 +294,15 @@ CMakeFiles/ui.dir/ui.c.o
  /usr/local/include/SDL3/SDL_render.h
  /usr/local/include/SDL3/SDL_stdinc.h
  /usr/local/include/SDL3/SDL_platform_defines.h
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
- /usr/include/stdint.h
- /usr/include/x86_64-linux-gnu/bits/wchar.h
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
  /usr/include/string.h
  /usr/include/strings.h
  /usr/include/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
  /usr/include/inttypes.h
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h
  /usr/local/include/SDL3/SDL_begin_code.h
@@ -333,6 +333,7 @@ CMakeFiles/ui.dir/ui.c.o
  /usr/local/include/SDL3/SDL_mouse.h
  /usr/local/include/SDL3/SDL_pen.h
  /usr/local/include/SDL3/SDL_touch.h
+ /usr/local/include/SDL3/SDL_gpu.h
  /usr/include/math.h
  /usr/include/x86_64-linux-gnu/bits/math-vector.h
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h
@@ -353,8 +354,8 @@ CMakeFiles/ui.dir/ui.c.o
  /usr/local/include/SDL3/SDL_clipboard.h
  /usr/local/include/SDL3/SDL_cpuinfo.h
  /usr/local/include/SDL3/SDL_dialog.h
+ /usr/local/include/SDL3/SDL_dlopennote.h
  /usr/local/include/SDL3/SDL_filesystem.h
- /usr/local/include/SDL3/SDL_gpu.h
  /usr/local/include/SDL3/SDL_haptic.h
  /usr/local/include/SDL3/SDL_hidapi.h
  /usr/local/include/SDL3/SDL_hints.h
@@ -376,4 +377,5 @@ CMakeFiles/ui.dir/ui.c.o
  /usr/local/include/SDL3/SDL_oldnames.h
  /usr/local/include/SDL3/SDL_main.h
  /usr/local/include/SDL3/SDL_main_impl.h
+ /usr/local/include/SDL3_ttf/SDL_ttf.h
 
