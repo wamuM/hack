@@ -1,31 +1,42 @@
+/*
+ * test_graph.c
+ *
+ * Integration test for graph.c + fetcher.c.
+ * Fetches the real Overpass data for Spain (admin_level 2->7) and validates
+ * the resulting graph structure and known adjacencies.
+ *
+ * Lives in tests/ — source files are one level up in ../.
+ * Requires network access (or a warm cache) and libcurl.
+ */
+
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdio.h>
 #include <string.h>
 
-#include "cJSON.h"
-#include "fetcher.h"
-#include "graph.h"
+#include "../cJSON.h"
+#include "../fetcher.h"
+#include "../graph.h"
 
-static int find_node_by_name(graph* g, const char* name)
+static int find_node_by_name(graph *g, const char *name)
 {
     for (int i = 0; i < g->node_len; i++) {
-        if (strcmp(g->nodes[i].name, name) == 0) {
+        if (strcmp(g->nodes[i].name, name) == 0)
             return i;
-        }
     }
     return -1;
 }
 
-static int are_adjacent(graph* g, int a, int b)
+static int are_adjacent(graph *g, int a, int b)
 {
     for (int i = 0; i < g->nodes[a].incidence_cnt; i++) {
-        if (g->nodes[a].incidence_list[i] == b) {
+        if (g->nodes[a].incidence_list[i] == b)
             return 1;
-        }
     }
     return 0;
 }
 
-static void test_neighbors(graph* g, const char* a_name, const char* b_name, int expected)
+static void test_neighbors(graph *g, const char *a_name, const char *b_name, int expected)
 {
     int a = find_node_by_name(g, a_name);
     int b = find_node_by_name(g, b_name);
@@ -39,12 +50,10 @@ static void test_neighbors(graph* g, const char* a_name, const char* b_name, int
 
     printf("[%s] %s <-> %s | expected=%d got=%d\n",
            result == expected ? "OK" : "FAIL",
-           a_name, b_name,
-           expected,
-           result);
+           a_name, b_name, expected, result);
 }
 
-static void validate_graph(graph* g)
+static void validate_graph(graph *g)
 {
     for (int i = 0; i < g->node_len; i++) {
         for (int j = 0; j < g->nodes[i].incidence_cnt; j++) {
@@ -57,7 +66,7 @@ static void validate_graph(graph* g)
 
             for (int k = j + 1; k < g->nodes[i].incidence_cnt; k++) {
                 if (g->nodes[i].incidence_list[k] == nb) {
-                    printf("[FAIL] Duplicate neighbor in %s: %s\n",
+                    printf("[FAIL] Duplicate neighbour in %s: %s\n",
                            g->nodes[i].name, g->nodes[nb].name);
                 }
             }
@@ -73,14 +82,15 @@ static void validate_graph(graph* g)
 
 int main(void)
 {
-    cJSON* obj = get_json("Catalunya", 7);
+    /* Fetch Spain (ISO3166-1=ES, admin_level 2) -> comarques (admin_level 7) */
+    cJSON *obj = get_json("'ISO3166-1'='ES'", 2, 7);
 
     if (obj == NULL) {
         printf("Error: could not fetch JSON\n");
         return 1;
     }
 
-    graph* g = graph_create_from_cjson(obj);
+    graph *g = graph_create_from_cjson(obj);
 
     if (g == NULL) {
         printf("Error: could not create graph\n");
@@ -92,12 +102,12 @@ int main(void)
     printf("Number of nodes: %d\n", g->node_len);
 
     validate_graph(g);
-    
-    test_neighbors(g, "Tarragonès", "Alt Camp", 1);
-    test_neighbors(g, "Tarragonès", "Baix Penedès", 1);
-    test_neighbors(g, "Tarragonès", "Vallès Occidental", 0);
-    test_neighbors(g, "Barcelonès", "Baix Llobregat", 1);
-    test_neighbors(g, "Barcelonès", "Segrià", 0);
+
+    test_neighbors(g, "Tarragonès",  "Alt Camp",          1);
+    test_neighbors(g, "Tarragonès",  "Baix Penedès",      1);
+    test_neighbors(g, "Tarragonès",  "Vallès Occidental", 0);
+    test_neighbors(g, "Barcelonès",  "Baix Llobregat",    1);
+    test_neighbors(g, "Barcelonès",  "Segrià",            0);
 
     graph_destroy(g);
     cJSON_Delete(obj);

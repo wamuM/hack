@@ -114,7 +114,7 @@ Path bfs(graph *g, int start, int goal)
 
     /* Trivial case: start == goal */
     if (start == goal) {
-        result.nodes = malloc(sizeof(node *));
+        result.nodes = malloc(sizeof(node));
         if (result.nodes == NULL) return result;
         result.nodes[0] = g->nodes[start];
         result.len = 1;

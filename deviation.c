@@ -53,7 +53,7 @@ int is_almost_path_node(const graph *g, int index,
 /* ------------------------------------------------------------------
  * classify_node
  * ------------------------------------------------------------------ */
-Desviation_case classify_node(const graph *g, int index,
+Deviation_case classify_node(const graph *g, int index,
                                const int *path_indices, int path_size)
 {
     /* Case 1 — node is part of the correct solution path */
@@ -81,7 +81,7 @@ Desviation_case classify_node(const graph *g, int index,
 int evaluate_user_regions(const graph *g,
                           const char **user_regions, int region_count,
                           const int  *path_indices,  int path_size,
-                          Desviation_case *out_results)
+                          Deviation_case *out_results)
 {
     if (g == NULL || user_regions == NULL || region_count <= 0 ||
         path_indices == NULL || path_size <= 0 || out_results == NULL) {
