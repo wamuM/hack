@@ -14,7 +14,9 @@ else()
     find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
 endif()
 
-add_executable(ui ui.c)
+ add_compile_options(-g)
+
+add_executable(ui ui.c ../fetcher.c ../cJSON.c)
 
 # Link to the actual SDL3 library.
-target_link_libraries(ui PRIVATE SDL3::SDL3 m)
+target_link_libraries(ui PRIVATE SDL3::SDL3 m curl)

@@ -38,7 +38,7 @@ size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s)
   return size*nmemb;
 }
 
-cJSON* get_json(const char* query)
+cJSON* get_json(const char* region, int admin_level)
 {
   CURL *curl = curl_easy_init();
   if(!curl) 
@@ -46,19 +46,18 @@ cJSON* get_json(const char* query)
     printf("error initializing curl\n");
     exit(-1);
   }
+
+  char query[300];
+  sprintf(query,  "[out:json];area['name'='%s']->.a;relation['boundary'='administrative']['admin_level'='%d'](area.a);out geom;", region, admin_level);
     
   char *encoded_query = curl_easy_escape(curl, query, 0);
   char cache_file[2048];
   sprintf(cache_file, "cache/%s.json", encoded_query);
 
-  if (access(cache_file, F_OK) == 0) {
-  // file exists
-  } else {
-  // file doesn't exist
-  }
-
-
-  return NULL;
+  if (access(cache_file, F_OK) != 0) 
+    fetch_file(query);
+ 
+  return load_json_file(cache_file);
 }
 
 int fetch_file(const char* query)
@@ -76,7 +75,7 @@ int fetch_file(const char* query)
   snprintf(url, sizeof(url), "https://overpass-api.de/api/interpreter?data=%s", encoded_query);
 
   char dst[2048];
-  mkdir("cache", 0644);
+  mkdir("cache", 0755);
   sprintf(dst, "cache/%s.json", encoded_query);
 
   printf("Fetching %s -> %s\n", url, dst);

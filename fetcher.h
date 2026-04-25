@@ -4,7 +4,7 @@
 #include "cJSON.h"
 #include <curl/curl.h>
 
-cJSON* fetch_json(const char* query);
+cJSON* get_json(const char* region, int admin_level);
 int fetch_file(const char* query);
 
 #endif

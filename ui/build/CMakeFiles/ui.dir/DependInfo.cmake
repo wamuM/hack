@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c" "CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o" "gcc" "CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o.d"
+  "/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c" "CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o" "gcc" "CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o.d"
   "/home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c" "CMakeFiles/ui.dir/ui.c.o" "gcc" "CMakeFiles/ui.dir/ui.c.o.d"
   )
 

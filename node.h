@@ -4,10 +4,8 @@ typedef struct node node;
 struct node 
 {
     int* incidence_list;
-    float** lats;
-    float** lons;
-    int num_cc;
-    int* len_cc;
+    int incidence_cnt;
+    char* name;
 };
 
 typedef struct graph graph;

@@ -7,9 +7,9 @@
 
 int main(void) {
 
-    const char *query = "[out:json];area['name'='Catalunya']->.a;relation['boundary'='administrative']['admin_level'='6'](area.a);out geom;";
+  cJSON* obj = get_json("Catalunya", 7);
 
-    fetch_file(query);
 
-    return 0;
+
+  return 0;
 }

@@ -129,6 +129,54 @@ ui/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/build
 .PHONY : ui/fast
 
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o: home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.i: home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.s: home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s
+
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o: home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.i: home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.s: home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s
+
 ui.o: ui.c.o
 .PHONY : ui.o
 
@@ -162,6 +210,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ui"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.s"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.s"
 	@echo "... ui.o"
 	@echo "... ui.i"
 	@echo "... ui.s"
