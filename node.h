@@ -3,11 +3,11 @@
 typedef struct node node;
 struct node 
 {
-    float* lats;
-    float* lons;
-    char* name;
-    int len;
-    int incidence_list[];
+    int* incidence_list;
+    float** lats;
+    float** lons;
+    int num_cc;
+    int* len_cc;
 };
 
 typedef struct graph graph;

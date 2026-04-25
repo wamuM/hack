@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <string.h>
 #include "fetcher.h"
 #include "cJSON.h"
-
-const char* TRIP_UPDATES = "https://gtfsrt.renfe.com/trip_updates.json";
-const char* VEHICLE_POSITIONS = "https://gtfsrt.renfe.com/vehicle_positions.json";
-const char* SCHEDULE = "https://ssl.renfe.com/ftransit/Fichero_CER_FOMENTO/fomento_transit.zip";
 
 struct string {
   char *ptr;
   size_t len;
 };
+
+cJSON* load_json_file(const char* filename);
 
 void init_string(struct string *s) {
   s->len = 0;
@@ -38,7 +38,7 @@ size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s)
   return size*nmemb;
 }
 
-cJSON* fetch_json(const char* url)
+cJSON* get_json(const char* query)
 {
   CURL *curl = curl_easy_init();
   if(!curl) 
@@ -46,27 +46,22 @@ cJSON* fetch_json(const char* url)
     printf("error initializing curl\n");
     exit(-1);
   }
+    
+  char *encoded_query = curl_easy_escape(curl, query, 0);
+  char cache_file[2048];
+  sprintf(cache_file, "cache/%s.json", encoded_query);
 
-  struct string s;
-  init_string(&s);
-
-  curl_easy_setopt(curl, CURLOPT_URL, url);
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  CURLcode result = curl_easy_perform(curl);
-  if(result)
-  {
-    printf("error fetching json\n");
-    return NULL;
+  if (access(cache_file, F_OK) == 0) {
+  // file exists
+  } else {
+  // file doesn't exist
   }
 
-  curl_easy_cleanup(curl);
-  cJSON* json = cJSON_Parse(s.ptr);
-  free(s.ptr);
-  return json;
+
+  return NULL;
 }
 
-int fetch_file(const char* url, const char* dst)
+int fetch_file(const char* query)
 {
   CURL *curl;
   FILE *fp;
@@ -74,6 +69,15 @@ int fetch_file(const char* url, const char* dst)
   curl = curl_easy_init();
   
   if (!curl) return 1;
+
+
+  char *encoded_query = curl_easy_escape(curl, query, 0);
+  char url[2048];
+  snprintf(url, sizeof(url), "https://overpass-api.de/api/interpreter?data=%s", encoded_query);
+
+  char dst[2048];
+  mkdir("cache", 0644);
+  sprintf(dst, "cache/%s.json", encoded_query);
 
   printf("Fetching %s -> %s\n", url, dst);
 
@@ -88,4 +92,44 @@ int fetch_file(const char* url, const char* dst)
   curl_easy_cleanup(curl);
   fclose(fp);
   return 0;
+}
+
+cJSON* load_json_file(const char* filename) {
+    FILE* fp = fopen(filename, "rb");
+    if (fp == NULL) {
+        perror("Unable to open file");
+        return NULL;
+    }
+
+    // Determine file size
+    fseek(fp, 0, SEEK_END);
+    long length = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+
+    // Allocate buffer
+    char* data = (char*)malloc(length + 1);
+    if (!data) {
+        fclose(fp);
+        return NULL;
+    }
+
+    // Read file into buffer
+    fread(data, 1, length, fp);
+    fclose(fp);
+    data[length] = '\0'; // Null-terminate
+
+    // Parse the JSON
+    cJSON* json = cJSON_Parse(data);
+    
+    // Free the buffer (cJSON creates its own copy of the data)
+    free(data);
+
+    if (json == NULL) {
+        const char* error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL) {
+            fprintf(stderr, "Error before: %s\n", error_ptr);
+        }
+    }
+
+    return json;
 }
