@@ -1,16 +1,7 @@
 #include "challenge_generator.h"
-#include "dijkstra.h"
+#include "path.h"
 
 #include <stdlib.h>
-
-/*
- * Assumptions:
- * - dijkstra(g, start, goal) returns a Path struct.
- * - Path.nodes contains the ordered list of node indices in the shortest path.
- * - Path.len is the number of nodes in that path.
- * - dijkstra_free_path(&path) releases any memory allocated inside Path.
- * - If no path exists, dijkstra returns Path with len <= 0.
- */
 
 int generate_random_start_goal(graph* g, int min_path_node_count, int* start, int* goal, Path* solution)
 {
@@ -29,7 +20,7 @@ int generate_random_start_goal(graph* g, int min_path_node_count, int* start, in
             continue;
         }
 
-        Path path = dijkstra(g, a, b);
+        Path path = path(g, a, b);
 
         if (path.len >= min_path_node_count) {
             *start = a;
@@ -38,7 +29,7 @@ int generate_random_start_goal(graph* g, int min_path_node_count, int* start, in
             return 0;
         }
 
-        dijkstra_free_path(&path);
+        path_free_path(&path);
     }
 
     return -1;
