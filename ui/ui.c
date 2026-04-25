@@ -15,6 +15,7 @@
 #include <SDL3/SDL_stdinc.h>
 #include <stdio.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include "../path.h" 
 
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
@@ -33,6 +34,11 @@ struct Text
 #define GAP 10
 
 int* state;
+graph grph; 
+int start_node_index;
+int goal_node_index;
+Path* solution;
+
 int* sent_regions;
 int* deviation;
 
@@ -98,8 +104,11 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     printf("%d\n", num_elms);
 
     state = (int *) calloc(num_elms, sizeof(int));
-    state[0] = 1;
-    state[1] = 3;
+    grph = graph_create_from_cjson(obj);
+    generate_random_start_goal(grph,3, start_node_index, goal_node_index, solution);
+    state[start_node_index] = 1;
+    state[goal_node_index] = 3;
+
     sent_regions = (int *) calloc(num_elms-2, sizeof(int));
     deviation = (int *) calloc(num_elms-2, sizeof(int));
 

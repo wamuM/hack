@@ -1,6 +1,7 @@
 #pragma once
 
 #include "node.h"
+#include "path.h"
 
 int generate_random_start_goal(
     graph* g,
