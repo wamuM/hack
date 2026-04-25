@@ -19,7 +19,7 @@
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
 
-void mk_text(const char* txt, int x, int y);
+void mk_text(const char* txt, int x, int y, int align_left);
 void on_subtmitted_answer();
 
 typedef struct Text Text;
@@ -84,8 +84,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
     SDL_SetRenderLogicalPresentation(renderer, W, H, SDL_LOGICAL_PRESENTATION_LETTERBOX);
   
-    //obj = get_json("'ISO3166-1'='ES'", 2, 4);
-    obj = get_json("'ISO3166-2'='ES-CT'", 4, 6);
+    // obj = get_json("'ISO3166-1'='ES'", 2, 4);
+     obj = get_json("'ISO3166-2'='ES-CT'", 4, 8);
 
     if(obj == NULL)
     {
@@ -253,7 +253,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
       int dv = deviation[i];
       char buf[255];
       sprintf(buf, "%d. %d", id, dv);
-      mk_text(buf, , int y)t
+      mk_text(buf, W - 10, 40 + 40 * i, 0);
 
     }
 
@@ -347,8 +347,8 @@ void draw_text(Text* text, int x, int y)
 void on_selected_region(int region)
 {
   state[region] = 2;
-  sent_regions[num_sent++] = region;
-  deviation[num_sent++] = 2;
+  sent_regions[num_sent] = region;
+  deviation[num_sent++] = rand()%10;
   // TODO: update_deviation(deviation, sent_regions, optimal)
   
 }
@@ -360,13 +360,17 @@ void on_subtmitted_answer()
     input_text.text[0] = '\0';
     input_text.text_w = 0;
     on_input_changed();
-    on_selected_region(4);
+    on_selected_region(rand()%948);
   }
 }
 
-void mk_text(const char* txt, int x, int y)
+void mk_text(const char* txt, int x, int y, int align_left)
 {
   sprintf(tmp_txt.text, "%s", txt);
   update_texture(&tmp_txt);
-  draw_text(&tmp_txt, x, y);
+  if(align_left)
+    draw_text(&tmp_txt, x, y);
+  else
+    draw_text(&tmp_txt, x-tmp_txt.text_w, y);
+
 }
