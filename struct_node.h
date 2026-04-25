@@ -1,16 +1,16 @@
 typedef struct node node;
 struct node 
 {
-    float lats[];
-    float lons[];
     int len;
-    int incidence_list[];
+    int* incidence_list;
+    float* lats;
+    float* lons;
 };
 
 typedef struct graph graph;
 
 struct graph
 {
-    node nodes[];
+    node *nodes;
     int node_len;
-}
+};

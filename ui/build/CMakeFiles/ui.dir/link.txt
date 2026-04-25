@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/ui.dir/ui.c.o -o ui  -Wl,-rpath,/usr/local/lib /usr/local/lib/libSDL3.so.0.2.10 -lm 
