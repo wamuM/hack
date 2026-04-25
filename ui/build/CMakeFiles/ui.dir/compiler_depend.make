@@ -291,15 +291,15 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_render.h \
   /usr/local/include/SDL3/SDL_stdinc.h \
   /usr/local/include/SDL3/SDL_platform_defines.h \
-  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h \
-  /usr/include/stdint.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h \
+  /usr/include/stdint.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/inttypes.h \
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
   /usr/local/include/SDL3/SDL_begin_code.h \
@@ -330,6 +330,7 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_mouse.h \
   /usr/local/include/SDL3/SDL_pen.h \
   /usr/local/include/SDL3/SDL_touch.h \
+  /usr/local/include/SDL3/SDL_gpu.h \
   /usr/include/math.h \
   /usr/include/x86_64-linux-gnu/bits/math-vector.h \
   /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -350,8 +351,8 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_clipboard.h \
   /usr/local/include/SDL3/SDL_cpuinfo.h \
   /usr/local/include/SDL3/SDL_dialog.h \
+  /usr/local/include/SDL3/SDL_dlopennote.h \
   /usr/local/include/SDL3/SDL_filesystem.h \
-  /usr/local/include/SDL3/SDL_gpu.h \
   /usr/local/include/SDL3/SDL_haptic.h \
   /usr/local/include/SDL3/SDL_hidapi.h \
   /usr/local/include/SDL3/SDL_hints.h \
@@ -372,7 +373,8 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_version.h \
   /usr/local/include/SDL3/SDL_oldnames.h \
   /usr/local/include/SDL3/SDL_main.h \
-  /usr/local/include/SDL3/SDL_main_impl.h
+  /usr/local/include/SDL3/SDL_main_impl.h \
+  /usr/local/include/SDL3_ttf/SDL_ttf.h
 
 
 /usr/local/include/SDL3/SDL_main_impl.h:
@@ -445,9 +447,11 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
 
 /usr/include/inttypes.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+/usr/local/include/SDL3/SDL_atomic.h:
 
-/usr/include/wchar.h:
+/usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
 /usr/local/include/SDL3/SDL_close_code.h:
 
@@ -471,6 +475,8 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
 
 /usr/include/string.h:
 
+/usr/local/include/SDL3_ttf/SDL_ttf.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/local/include/SDL3/SDL_init.h:
@@ -482,10 +488,6 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/local/include/SDL3/SDL_atomic.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
@@ -504,6 +506,8 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+
+/usr/local/include/SDL3/SDL_dlopennote.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
@@ -596,6 +600,8 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
