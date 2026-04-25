@@ -1,0 +1,129 @@
+!! DISCLAIMER !!
+This readme is not finished yet, it may be incomplete
+
+# GeoPath
+
+A geography-based puzzle game written in C. Given a start region and a goal region, the player must find the correct route by naming the intermediate regions that connect them. The game works at any administrative level — countries, provinces, comarques, districts — by fetching real boundary data from the OpenStreetMap Overpass API.
+
+## How it works
+
+The game builds a graph where each node is an administrative region and each edge connects two regions that share a physical border. A BFS search finds the shortest path between the start and goal. As the player types region names, each guess is classified in real time:
+
+- **Correct** — the region is on the optimal path.
+- **Close** — the region is not on the path but borders at least one region that is.
+- **Wrong** — the region has no direct connection to the path.
+
+Border data is fetched once from the Overpass API and cached locally, so subsequent runs are instant.
+
+## Project structure
+
+```
+.
+├── main.c                  # Entry point
+├── graph.c / graph.h       # Graph construction from Overpass JSON
+├── node.h                  # node and graph struct definitions
+├── path.c / path.h         # BFS shortest-path algorithm
+├── deviation.c / deviation.h  # Player guess classification
+├── challenge_generator.c/h # Random start/goal pair generation
+├── auto_completion.h       # Region name autocomplete interface
+├── fetcher.c / fetcher.h   # Overpass API HTTP fetcher + local cache
+├── cJSON.c / cJSON.h       # Bundled JSON parser (cJSON)
+├── Makefile
+└── tests/
+    ├── Makefile
+    ├── test_path.c         # BFS unit tests
+    ├── test_deviation.c    # Deviation classification unit tests
+    └── test_graph.c        # Graph integration test (requires network)
+```
+
+## Dependencies
+
+| Dependency | Purpose | Install |
+|---|---|---|
+| `libcurl` | HTTP requests to the Overpass API | `sudo apt install libcurl4-openssl-dev` |
+| `cJSON` | JSON parsing (bundled, no install needed) | — |
+
+## Building
+
+```bash
+# Build the main game binary
+make
+
+# Clean compiled binaries
+make clean
+```
+
+## Running the tests
+
+Tests live in the `tests/` directory and are run from there.
+
+```bash
+cd tests
+
+make test_path       # BFS / path unit tests       (no network required)
+make test_deviation  # Deviation logic unit tests   (no network required)
+make test_graph      # Graph integration test       (requires network or cache)
+
+make test            # Run all three suites
+make clean           # Remove test binaries
+```
+
+`test_path` and `test_deviation` build an in-memory graph and run fully offline. `test_graph` fetches real data from the Overpass API on the first run and caches the result in `cache/` — subsequent runs use the cache and need no network.
+
+## Data source and query format
+
+Region data is fetched from the [Overpass API](https://overpass-api.de) using `get_json(region, admin_level, sub_level)`:
+
+```c
+// Fetch all admin_level 7 regions (comarques) inside Spain (admin_level 2)
+cJSON *obj = get_json("'ISO3166-1'='ES'", 2, 7);
+```
+
+The first argument is an OSM tag filter identifying the parent area, the second is its administrative level, and the third is the level of the sub-regions to load as graph nodes.
+
+Common administrative levels in OSM:
+
+| Level | Typical meaning |
+|---|---|
+| 2 | Country |
+| 4 | Region / autonomous community |
+| 6 | Province |
+| 7 | comarca / district |
+| 8 | Municipality |
+
+Fetched responses are stored in `cache/` as JSON files named after the query parameters. Delete the `cache/` directory to force a fresh fetch.
+
+## Module overview
+
+### `graph.c`
+Parses the Overpass JSON response and builds an undirected graph. Two regions are connected by an edge if their boundary ways share at least one OSM way reference (i.e. they physically share a border segment).
+
+### `path.c`
+Implements BFS on the graph to find the shortest path by hop count between a start and a goal node. Exposes `bfs()`, `bfs_free_path()`, and `get_neighbors()`.
+
+### `deviation.c`
+Classifies a player's guessed region against the solution path:
+
+```
+PATH_NODE        — the guess is on the optimal path
+ALMOST_PATH_NODE — the guess borders a path node (distance 1)
+INCORRECT_NODE   — the guess has no direct connection to the path
+```
+
+The main entry point for game logic is `evaluate_user_regions()`, which takes an array of name strings and writes a `Deviation_case` result for each one.
+
+### `challenge_generator.c`
+Picks a random start/goal pair that guarantees a minimum path length, using repeated BFS attempts with a configurable retry limit.
+
+### `fetcher.c`
+Handles HTTP fetching via libcurl and local JSON caching. Responses are stored in `cache/<query>.json`. If the cache file already exists it is loaded directly without a network request.
+
+### `auto_completion.h`
+Interface for region name autocompletion as the player types. Returns up to `MAX_NUM_SUGGEST` (3) suggestions matching the current input prefix.
+
+## Known limitations
+
+- The cache never expires automatically. If OSM boundary data changes, delete `cache/` to re-fetch.
+- `challenge_generator` uses `rand()` — call `srand(time(NULL))` in `main` before generating challenges, otherwise every run produces the same start/goal pair.
+- Regions with no shared border ways (e.g. islands) will appear as isolated nodes in the graph. The BFS returns an empty path for these, and `challenge_generator` will skip them.
+- The Overpass API has rate limits. If many regions are loaded at once, consider adding a delay or using a local Overpass instance.
