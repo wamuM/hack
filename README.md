@@ -1,6 +1,3 @@
-!! DISCLAIMER !!
-This readme is not finished yet, it may be incomplete
-
 # GeoPath
 
 A geography-based puzzle game written in C. Given a start region and a goal region, the player must find the correct route by naming the intermediate regions that connect them. The game works at any administrative level — countries, provinces, comarques, districts — by fetching real boundary data from the OpenStreetMap Overpass API.
@@ -16,6 +13,8 @@ The game builds a graph where each node is an administrative region and each edg
 Border data is fetched once from the Overpass API and cached locally, so subsequent runs are instant.
 
 ## Project structure
+
+You will find the source code directly in the home and some brief test that you can run to check that everything it's ok. 
 
 ```
 .
@@ -38,15 +37,27 @@ Border data is fetched once from the Overpass API and cached locally, so subsequ
 
 ## Dependencies
 
-| Dependency | Purpose | Install |
-|---|---|---|
-| `libcurl` | HTTP requests to the Overpass API | `sudo apt install libcurl4-openssl-dev` |
-| `cJSON` | JSON parsing (bundled, no install needed) | — |
+-------------------------------------------------------------------------------------------------------
+| Dependency | Purpose                                      | Install                                 |
+|------------|----------------------------------------------|-----------------------------------------|
+|  `libcurl` |      HTTP requests to the Overpass API       | `sudo apt install libcurl4-openssl-dev` |
+|  `cJSON`   |  JSON parsing (bundled, no install needed)   |                    —                    |
+|  `cmake`   | You need cmake to build the game from source |         `sudo apt install cmake`        |
+-------------------------------------------------------------------------------------------------------
 
 ## Building
 
 ```bash
-# Build the main game binary
+# After cloning the repository, go to the directory, create the build folder and configure it for the next steps
+mkdir build-001
+cd build-001/
+cmake -DCMAKE_BUILD_TYPE=Release .. 
+
+# Compile the source code and install it if everything goes as planned 
+cmake --build .
+cmake --install .
+
+#Build the main game binary
 make
 
 # Clean compiled binaries

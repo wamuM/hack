@@ -89,32 +89,36 @@ static void test_basic_paths(graph *g)
     printf("\n-- Basic path finding --\n");
 
     {
-        Path p = bfs(g, 0, 3);
+        Path p1;
+		bfs(&p1, g, 0, 3);
         const char *exp[] = {"A", "B", "C", "D"};
         CHECK("A->D length is 4",        p.len == 4);
         CHECK("A->D route is A-B-C-D",   path_matches(&p, exp, 4));
-        bfs_free_path(&p);
+        bfs_free_path(&p1);
     }
     {
-        Path p = bfs(g, 0, 5);
+        Path p2;
+		bfs(&p2, g, 0, 5);
         const char *exp[] = {"A", "B", "C", "E", "F"};
         CHECK("A->F length is 5",        p.len == 5);
         CHECK("A->F route is A-B-C-E-F", path_matches(&p, exp, 5));
-        bfs_free_path(&p);
+        bfs_free_path(&p2);
     }
     {
-        Path p = bfs(g, 3, 5);
+        Path p3;
+		bfs(&p3, g, 3, 5);
         const char *exp[] = {"D", "C", "E", "F"};
         CHECK("D->F length is 4",        p.len == 4);
         CHECK("D->F route is D-C-E-F",   path_matches(&p, exp, 4));
-        bfs_free_path(&p);
+        bfs_free_path(&p3);
     }
     {
-        Path p = bfs(g, 1, 1);
+        Path p4;
+		bfs(&p4, g, 1, 1);
         CHECK("B->B trivial length is 1", p.len == 1);
         CHECK("B->B trivial node is B",
               p.len == 1 && strcmp(path_node_name(&p, 0), "B") == 0);
-        bfs_free_path(&p);
+        bfs_free_path(&p4);
     }
 }
 
@@ -122,7 +126,8 @@ static void test_no_path(graph *g)
 {
     printf("\n-- No path (isolated node) --\n");
 
-    Path p = bfs(g, 0, 6);
+    Path p;
+	bfs(&p, g, 0, 6);
     CHECK("A->G (isolated) returns len 0", p.len == 0);
     CHECK("A->G nodes pointer is NULL",    p.nodes == NULL);
     bfs_free_path(&p);
@@ -134,13 +139,13 @@ static void test_invalid_inputs(graph *g)
 
     Path p;
 
-    p = bfs(NULL, 0, 1);
+    bfs(&p, NULL, 0, 1);
     CHECK("NULL graph returns len 0",        p.len == 0);
 
-    p = bfs(g, -1, 1);
+    bfs(&p, g, -1, 1);
     CHECK("Negative start returns len 0",    p.len == 0);
 
-    p = bfs(g, 0, 999);
+    bfs(&p, g, 0, 999);
     CHECK("Out-of-range goal returns len 0", p.len == 0);
 
     bfs_free_path(NULL);
@@ -181,15 +186,17 @@ static void test_free_reuse(graph *g)
 {
     printf("\n-- Free and reuse --\n");
 
-    Path p = bfs(g, 0, 3);
+    Path p1;
+	bfs(&p1, g, 0, 3);
     CHECK("First A->D succeeds",    p.len == 4);
-    bfs_free_path(&p);
+    bfs_free_path(&p1);
     CHECK("After free, len is 0",   p.len == 0);
     CHECK("After free, nodes NULL", p.nodes == NULL);
 
-    p = bfs(g, 0, 3);
+    Path p2;
+	bfs(&p2, g, 0, 3);
     CHECK("Second A->D still works", p.len == 4);
-    bfs_free_path(&p);
+    bfs_free_path(&p2);
 }
 
 /* -------------------------------------------------------------------------
