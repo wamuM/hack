@@ -66,17 +66,18 @@ static graph *make_graph(const char **names, int n)
 /* -------------------------------------------------------------------------
  * Helpers
  * ------------------------------------------------------------------------- */
-static const char *path_node_name(const Path *p, int i)
+static const char *path_node_name(const graph *g, const Path *p, int i)
 {
     if (p == NULL || i < 0 || i >= p->len || p->nodes == NULL) return "(null)";
-    return p->nodes[i].name ? p->nodes[i].name : "(unnamed)";
+	int idx = p->nodes[i];
+    return g->nodes[idx].name ? g->nodes[idx].name : "(unnamed)";
 }
 
-static int path_matches(const Path *p, const char **expected, int expected_len)
+static int path_matches(const graph *g, const Path *p, const char **expected, int expected_len)
 {
     if (p->len != expected_len) return 0;
     for (int i = 0; i < expected_len; i++) {
-        if (strcmp(path_node_name(p, i), expected[i]) != 0) return 0;
+        if (strcmp(path_node_name(g, p, i), expected[i]) != 0) return 0;
     }
     return 1;
 }
@@ -92,32 +93,32 @@ static void test_basic_paths(graph *g)
         Path p1;
 		bfs(&p1, g, 0, 3);
         const char *exp[] = {"A", "B", "C", "D"};
-        CHECK("A->D length is 4",        p.len == 4);
-        CHECK("A->D route is A-B-C-D",   path_matches(&p, exp, 4));
+        CHECK("A->D length is 4",        p1.len == 4);
+        CHECK("A->D route is A-B-C-D",   path_matches(g, &p1, exp, 4));
         bfs_free_path(&p1);
     }
     {
         Path p2;
 		bfs(&p2, g, 0, 5);
         const char *exp[] = {"A", "B", "C", "E", "F"};
-        CHECK("A->F length is 5",        p.len == 5);
-        CHECK("A->F route is A-B-C-E-F", path_matches(&p, exp, 5));
+        CHECK("A->F length is 5",        p2.len == 5);
+        CHECK("A->F route is A-B-C-E-F", path_matches(g, &p2, exp, 5));
         bfs_free_path(&p2);
     }
     {
         Path p3;
 		bfs(&p3, g, 3, 5);
         const char *exp[] = {"D", "C", "E", "F"};
-        CHECK("D->F length is 4",        p.len == 4);
-        CHECK("D->F route is D-C-E-F",   path_matches(&p, exp, 4));
+        CHECK("D->F length is 4",        p3.len == 4);
+        CHECK("D->F route is D-C-E-F",   path_matches(g, &p3, exp, 4));
         bfs_free_path(&p3);
     }
     {
         Path p4;
 		bfs(&p4, g, 1, 1);
-        CHECK("B->B trivial length is 1", p.len == 1);
+        CHECK("B->B trivial length is 1", p4.len == 1);
         CHECK("B->B trivial node is B",
-              p.len == 1 && strcmp(path_node_name(&p, 0), "B") == 0);
+              p4.len == 1 && strcmp(path_node_name(g, &p4, 0), "B") == 0);
         bfs_free_path(&p4);
     }
 }
@@ -188,14 +189,14 @@ static void test_free_reuse(graph *g)
 
     Path p1;
 	bfs(&p1, g, 0, 3);
-    CHECK("First A->D succeeds",    p.len == 4);
+    CHECK("First A->D succeeds",    p1.len == 4);
     bfs_free_path(&p1);
-    CHECK("After free, len is 0",   p.len == 0);
-    CHECK("After free, nodes NULL", p.nodes == NULL);
+    CHECK("After free, len is 0",   p1.len == 0);
+    CHECK("After free, nodes NULL", p1.nodes == NULL);
 
     Path p2;
 	bfs(&p2, g, 0, 3);
-    CHECK("Second A->D still works", p.len == 4);
+    CHECK("Second A->D still works", p2.len == 4);
     bfs_free_path(&p2);
 }
 
