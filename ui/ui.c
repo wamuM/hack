@@ -18,7 +18,7 @@
 #include "../path.h" 
 #include "../graph.h"
 #include "../auto_completion.h"
-//#include "../challenge_generator.h"
+#include "../challenge_generator.h"
 
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
@@ -40,7 +40,7 @@ int* state;
 graph grph; 
 int start_node_index;
 int goal_node_index;
-Path* solution;
+Path solution;
 
 int* sent_regions;
 int* deviation;
@@ -94,7 +94,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     SDL_SetRenderLogicalPresentation(renderer, W, H, SDL_LOGICAL_PRESENTATION_LETTERBOX);
   
     // obj = get_json("'ISO3166-1'='ES'", 2, 4);
-     obj = get_json("'ISO3166-2'='ES-CT'", 4, 8);
+     obj = get_json("'ISO3166-2'='ES-CT'", 4, 7);
 
     if(obj == NULL)
     {
@@ -112,7 +112,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
       printf("Graph creation failed!");
       exit(1);
     }
-    //generate_random_start_goal(&grph,3, &start_node_index, &goal_node_index, solution);
+    generate_random_start_goal(&grph,3, &start_node_index, &goal_node_index, &solution);
     state[start_node_index] = 1;
     state[goal_node_index] = 3;
 

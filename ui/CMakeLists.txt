@@ -17,7 +17,7 @@ endif()
 find_package(SDL3_ttf CONFIG REQUIRED)
  add_compile_options(-g)
 
-add_executable(ui ui.c ../fetcher.c ../cJSON.c ../path.c ../graph.c ../auto_completion.c )
+add_executable(ui ui.c ../fetcher.c ../cJSON.c ../path.c ../graph.c ../auto_completion.c ../challenge_generator.c)
 
 # Link to the actual SDL3 library.
 target_link_libraries(ui PRIVATE SDL3::SDL3 SDL3_ttf::SDL3_ttf m curl utf8proc)
