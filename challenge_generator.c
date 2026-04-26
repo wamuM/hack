@@ -27,7 +27,7 @@ int generate_random_start_goal(graph* g, int min_path_node_count, int* start, in
             *goal = b;
             return 0;
         }
-        free(solution);
+        bfs_free_path(solution);
     }
     return -1;
 }
