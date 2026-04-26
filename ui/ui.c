@@ -373,9 +373,17 @@ void on_selected_region(int region)
 {
   state[region] = 2;
   sent_regions[num_sent] = region;
-  deviation[num_sent++] = rand()%3;
-  // TODO: update_deviation(deviation, sent_regions, optimal)
-  
+  deviation[num_sent++] = classify_node(&grph, region, solution->nodes, solution->len);
+
+  // check if winning
+  areYouWinningSon = 1;
+  for(int i = 0; i < solution->len; ++i){
+    if(state[solution->nodes[i]] == 0){
+        areYouWinningSon = 0;
+        break;
+    }
+  }
+  if(areYouWinningSon)win();
 }
 
 void on_subtmitted_answer()
@@ -387,6 +395,7 @@ void on_subtmitted_answer()
     input_text.text_w = 0;
     on_input_changed();
     // Select region
+
     on_selected_region(suggestion_index[0]);
   }
 }

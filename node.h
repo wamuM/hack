@@ -1,8 +1,7 @@
 #pragma once
 
 typedef struct node node;
-struct node 
-{
+struct node {
     int* incidence_list;
     int incidence_cnt;
     char* name;

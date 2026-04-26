@@ -178,7 +178,7 @@ Path bfs(graph *g, int start, int goal)
         if (cur == start) break;
     }
 
-    node *path_nodes = malloc(path_len * sizeof(node));
+    int *path_nodes = malloc(path_len * sizeof(int));
     if (path_nodes == NULL) {
         free(prev);
         return result;
@@ -187,7 +187,7 @@ Path bfs(graph *g, int start, int goal)
     /* Second pass: fill in reverse order, then reverse in place */
     int idx = path_len - 1;
     for (int cur = goal; ; cur = prev[cur]) {
-        path_nodes[idx--] = g->nodes[cur];
+        path_nodes[idx--] = cur;
         if (cur == start) break;
     }
 

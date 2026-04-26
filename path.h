@@ -10,7 +10,7 @@
  */
 typedef struct Path Path;
 struct Path {
-    node *nodes;   /* heap-allocated; free with dijkstra_free_path() */
+    int *nodes;   /* heap-allocated; free with dijkstra_free_path() */
     int   len;
 };
 
