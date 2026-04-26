@@ -18,8 +18,9 @@ struct Path {
  * BFS shortest path (by hop count) from `start` to `goal` in graph `g`.
  * Returns a Path the caller must free with bfs_free_path().
  */
-Path bfs(graph *g, int start, int goal);
-
+void bfs(Path* result, graph *g, int start, int goal);
+// this version only traverses nodes whose index in max is not 0
+void masked_bfs(Path* result, graph *g, int start, int goal, int* mask);
 /*
  * Frees the internal node array and resets the struct to the empty state.
  * Takes a pointer so the caller's struct is zeroed as well.

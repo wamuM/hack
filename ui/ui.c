@@ -428,14 +428,9 @@ void on_selected_region(int region)
   deviation[num_sent++] = classify_node(&grph, region, solution->nodes, solution->len);
 
   // check if winning
-  areYouWinningSon = 1;
-  for(int i = 0; i < solution->len; ++i){
-    if(state[solution->nodes[i]] == 0){
-        areYouWinningSon = 0;
-        break;
-    }
-  }
-  if(areYouWinningSon)win();
+  Path user_solution;
+  masked_bfs(user_solution, &grph, start_node_index, goal_node_index, state); 
+  if(user_solution)win();
 }
 
 void on_subtmitted_answer()

@@ -101,24 +101,23 @@ int *get_neighbors(const graph *g, int index, int *out_count)
 /* -------------------------------------------------------------------------
  * BFS
  * ------------------------------------------------------------------------- */
-Path bfs(graph *g, int start, int goal)
+void _bfs(Path* result, graph *g, int start, int goal, int useMask, int* mask)
 {
-    Path result;
-    result.nodes = NULL;
-    result.len   = 0;
+    result->nodes = NULL;
+    result->len   = 0;
 
     if (g == NULL || start < 0 || goal < 0 ||
         start >= g->node_len || goal >= g->node_len) {
-        return result;
+        return;
     }
 
     /* Trivial case: start == goal */
     if (start == goal) {
-        result.nodes = malloc(sizeof(node));
-        if (result.nodes == NULL) return result;
-        result.nodes[0] = g->nodes[start];
-        result.len = 1;
-        return result;
+        result->nodes = malloc(sizeof(node));
+        if (result->nodes == NULL) return;
+        result->nodes[0] = start;
+        result->len = 1;
+        return;
     }
 
     const int N = g->node_len;
@@ -128,13 +127,13 @@ Path bfs(graph *g, int start, int goal)
      * -1 means "not visited".
      */
     int *prev = malloc(N * sizeof(int));
-    if (prev == NULL) return result;
+    if (prev == NULL) return;
     for (int i = 0; i < N; i++) prev[i] = -1;
 
     Queue q;
     if (queue_init(&q, N) != 0) {
         free(prev);
-        return result;
+        return;
     }
 
     /* Mark start as visited (using itself as a sentinel) */
@@ -153,6 +152,7 @@ Path bfs(graph *g, int start, int goal)
 
         for (int i = 0; i < g->nodes[cur].incidence_cnt; i++) {
             int nb = g->nodes[cur].incidence_list[i];
+            if(useMask && mask[nb] == 0)continue;
             if (prev[nb] == -1) {
                 prev[nb] = cur;
                 queue_push(&q, nb);
@@ -164,7 +164,7 @@ Path bfs(graph *g, int start, int goal)
 
     if (!found) {
         free(prev);
-        return result;   /* no path — len stays 0 */
+        return;   /* no path — len stays 0 */
     }
 
     /* -----------------------------------------------------------------------
@@ -181,7 +181,7 @@ Path bfs(graph *g, int start, int goal)
     int *path_nodes = malloc(path_len * sizeof(int));
     if (path_nodes == NULL) {
         free(prev);
-        return result;
+        return;
     }
 
     /* Second pass: fill in reverse order, then reverse in place */
@@ -193,11 +193,15 @@ Path bfs(graph *g, int start, int goal)
 
     free(prev);
 
-    result.nodes = path_nodes;
-    result.len   = path_len;
-    return result;
+    result->nodes = path_nodes;
+    result->len   = path_len;
 }
-
+void bfs(Path* result, graph *g, int start, int goal){
+    _bfs(result, g, start, goal, 0, NULL);
+}
+void masked_bfs(Path* result, graph *g, int start, int goal, int* mask){
+    _bfs(result, g, start, goal, 1, mask);
+}
 /* -------------------------------------------------------------------------
  * bfs_free_path
  * ------------------------------------------------------------------------- */
