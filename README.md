@@ -1,4 +1,4 @@
-# Generalized Trable
+# Generalized Travle
 
 A geography-based puzzle game written in C. Given a start region and a goal region, the player must find the correct route by naming the intermediate regions that connect them. The game works at any administrative level — countries, provinces, comarques, districts — by fetching real boundary data from the OpenStreetMap Overpass API.
 
@@ -14,7 +14,7 @@ Border data is fetched once from the Overpass API and cached locally, so subsequ
 
 ## How I run it
 
-As an example execute the next scriptin the game home folder
+As an example execute the next script in the game home folder
 ```
 ui/build$ ./ui ISO3166-1 FR 2 4 en
 ```

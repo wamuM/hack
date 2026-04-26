@@ -56,7 +56,7 @@ int num_sent = 0;
 static TTF_Font *font = NULL;
 static TTF_Font *win_font = NULL;
 static Text input_text; 
-static Text tmp_txt;
+// static Text tmp_txt;
 
 void destroy_text(Text* text);
 void draw_text(Text* text, int x, int y);
@@ -173,6 +173,11 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
         SDL_Log("Failed to load font: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
+
+    memset(&input_text, 0, sizeof(Text));
+ //   memset(&tmp_txt, 0, sizeof(Text));
+    for (int i = 0; i < MAX_AUTOCOMPLETE; i++)
+      memset(&suggestions[i], 0, sizeof(Text));
 
     return SDL_APP_CONTINUE;  /* carry on with the program! */
 }
@@ -328,11 +333,13 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     if(won)
     {
 
-      sprintf(tmp_txt.text, "Press <space> to exit");
+     /* sprintf(tmp_txt.text, "");
       update_texture(&tmp_txt, 0, 0, 0);
-      draw_text(&tmp_txt, W/2-tmp_txt.text_w/2, H/2);
+      draw_text(&tmp_txt, W/2-tmp_txt.text_w/2, H/2);*/
+      mk_text("Press <space> to exit", W/2, H/2, -1, 0,0,0);
 
 
+      Text tmp_txt;
       sprintf(tmp_txt.text, "You WON!!!");
       SDL_Color black = {0, 0, 0, 255};
     if (tmp_txt.text_texture) SDL_DestroyTexture(tmp_txt.text_texture);
@@ -347,6 +354,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     
     SDL_DestroySurface(surf);
       draw_text_no_bg(&tmp_txt, W/2-tmp_txt.text_w/2, H/2-100);
+      
     }
 
 
@@ -361,7 +369,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
     /* SDL will clean up the window/renderer for us. */
   cJSON_Delete(obj);
   destroy_text(&input_text);
-  destroy_text(&tmp_txt);
+//  destroy_text(&tmp_txt);
   for(int i = 0; i<MAX_AUTOCOMPLETE; i++)
     destroy_text(&suggestions[i]);
   
@@ -372,9 +380,17 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
 
 void update_texture(Text* text, int r, int g, int b)
 {
+  if (text->text_texture) {
+    SDL_DestroyTexture(text->text_texture);
+    text->text_texture = NULL;
+}
+
+if (strlen(text->text) == 0) {
+    text->text_w = text->text_h = 0;
+    return;
+}
+
     SDL_Color black = {r, g, b, 255};
-    if (text->text_texture) SDL_DestroyTexture(text->text_texture);
-    if(strlen(text->text) == 0) return; 
 
     // Create a surface from text
     SDL_Surface *surf = TTF_RenderText_Blended(font, text->text, 0, black);
@@ -467,12 +483,17 @@ void on_subtmitted_answer()
 
 void mk_text(const char* txt, int x, int y, int align_left, int r, int g, int b)
 {
-  sprintf(tmp_txt.text, "%s", txt);
+  Text  tmp_txt = {0};
+  snprintf(tmp_txt.text, INPUT_BUFFER_SIZE, "%s", txt);
   update_texture(&tmp_txt, r, g, b);
-  if(align_left)
+  if(align_left == 1)
     draw_text(&tmp_txt, x, y);
-  else
+  else if(align_left == 0)
     draw_text(&tmp_txt, x-tmp_txt.text_w, y);
+  else
+    draw_text(&tmp_txt, x-tmp_txt.text_w/2, y);
+
+  destroy_text(&tmp_txt);
 
 }
 
