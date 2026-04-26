@@ -30,8 +30,9 @@ int startsWith(const char* s1, const char* s2){
     return 1;
 }
 
-int populate(char** ch, char* s, int* filled, int max){
-    ch[(*filled)++] = s;
+int populate(char** strs, int* indx, graph* g, int node_index, int* filled, int max){
+    strs[(*filled)++] = g->nodes[node_index].name;
+    indx[(*filled)++] = node_index;
     // Return true if done
     return (*filled) >= max;
 }
@@ -48,7 +49,7 @@ void normalize_names(graph* g){
     }
 }
 
-int generate_suggestions(char *input, graph *g, char **output, int* state, int max){
+int generate_suggestions(char *input, graph *g, char **output_str, int* output_index, int* state, int max){
     if(input[0] == '\0') return 0;
 
     char* nprefix = normalize_utf8(input);//normalize prefix 
@@ -60,7 +61,7 @@ int generate_suggestions(char *input, graph *g, char **output, int* state, int m
         if(state[i])continue; // Skip nodes that are already in the state
         if(!norm_names[i])continue;// Skip nodes that couldn't be normalized
         if(startsWith(norm_names[i], nprefix)){ 
-            if(populate(output, g->nodes[i].name,&filled, max))break;
+            if(populate(output_str, output_index, g, i, &filled, max))break;
         }
     }
     free(nprefix);

@@ -23,6 +23,7 @@
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
 
+
 void mk_text(const char* txt, int x, int y, int align_left);
 void on_subtmitted_answer();
 
@@ -57,6 +58,8 @@ void on_input_changed();
 
 static Text suggestions[MAX_AUTOCOMPLETE];
 static int suggestion_len;
+static char* suggestion_str[MAX_AUTOCOMPLETE];
+static int suggestion_index[MAX_AUTOCOMPLETE];
 
 #define W 1400
 #define H 900
@@ -322,8 +325,7 @@ void update_texture(Text* text)
 
 void update_complition()
 {
-  char* suggestion_str[MAX_AUTOCOMPLETE];;
-  suggestion_len = generate_suggestions(input_text.text, &grph, suggestion_str, state, MAX_AUTOCOMPLETE);
+  suggestion_len = generate_suggestions(input_text.text, &grph, suggestion_str, suggestion_index, state, MAX_AUTOCOMPLETE);
 
   for(int i = 0; i<suggestion_len; i++)
     sprintf(suggestions[i].text, "%s" , suggestion_str[i]);
@@ -371,12 +373,14 @@ void on_selected_region(int region)
 
 void on_subtmitted_answer()
 {
-  if(true) // is good answer
+  if(suggestion_len > 0) // is good answer
   {
+    // Clear input
     input_text.text[0] = '\0';
     input_text.text_w = 0;
     on_input_changed();
-    on_selected_region(rand()%948);
+    // Select region
+    on_selected_region(suggestion_index[0]);
   }
 }
 
