@@ -120,6 +120,7 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_scancode.h \
  /usr/local/include/SDL3/SDL_video.h /usr/local/include/SDL3/SDL_mouse.h \
  /usr/local/include/SDL3/SDL_pen.h /usr/local/include/SDL3/SDL_touch.h \
+ /usr/local/include/SDL3/SDL_oldnames.h \
  /usr/local/include/SDL3/SDL_render.h /usr/local/include/SDL3/SDL_gpu.h \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -149,9 +150,7 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_storage.h \
  /usr/local/include/SDL3/SDL_system.h /usr/local/include/SDL3/SDL_time.h \
  /usr/local/include/SDL3/SDL_timer.h /usr/local/include/SDL3/SDL_tray.h \
- /usr/local/include/SDL3/SDL_version.h \
- /usr/local/include/SDL3/SDL_oldnames.h \
- /usr/local/include/SDL3/SDL_main.h \
+ /usr/local/include/SDL3/SDL_version.h /usr/local/include/SDL3/SDL_main.h \
  /usr/local/include/SDL3/SDL_main_impl.h \
  /usr/local/include/SDL3_ttf/SDL_ttf.h \
  /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../path.h \
@@ -159,4 +158,5 @@ CMakeFiles/ui.dir/ui.c.o: \
  /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../graph.h \
  /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../auto_completion.h \
  /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../challenge_generator.h \
- /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../path.h
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../path.h \
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../deviation.h

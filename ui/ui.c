@@ -1,5 +1,6 @@
 #include "../fetcher.h"
 #include <SDL3/SDL_init.h>
+#include <SDL3/SDL_oldnames.h>
 #include <SDL3/SDL_render.h>
 #include <linux/limits.h>
 #include <math.h>
@@ -16,6 +17,7 @@
 #include "../graph.h"
 #include "../auto_completion.h"
 #include "../challenge_generator.h"
+#include "../deviation.h"
 
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
@@ -36,6 +38,7 @@ void draw_text_no_bg(Text* text, int x, int y);
 
 #define GAP 10
 
+int get_deviation(int index);
 void win();
 static bool won = false;
 
@@ -79,6 +82,8 @@ static SDL_Renderer *renderer = NULL;
 
 float tx, ty, scl;
 
+char title[300];
+
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
     SDL_SetAppMetadata("Generalised Travle", "1.0", "");
@@ -98,9 +103,12 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     SDL_SetRenderVSync(renderer, -1);
 
     SDL_SetRenderLogicalPresentation(renderer, W, H, SDL_LOGICAL_PRESENTATION_LETTERBOX);
-  
+ 
+    char buff[200];
+    sprintf(buff, "'%s'='%s'", argv[1], argv[2]);
+     obj = get_json(buff, atoi(argv[3]), atoi(argv[4]));
     // obj = get_json("'ISO3166-1'='ES'", 2, 4);
-     obj = get_json("'ISO3166-2'='ES-CT'", 4, 7);
+    // obj = get_json("'ISO3166-2'='ES-CT'", 4, 7);
 
     if(obj == NULL)
     {
@@ -119,6 +127,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
       exit(1);
     }
     generate_random_start_goal(&grph,3, &start_node_index, &goal_node_index, &solution);
+    sprintf(title, "From %s to %s", grph.nodes[start_node_index].name, grph.nodes[goal_node_index].name);
     state[start_node_index] = 1;
     state[goal_node_index] = 3;
 
@@ -218,7 +227,24 @@ int max(int a, int b)
   return a < b ? b : a;
 }
 
+int red(int dv)
+{
+  if(dv == 0) return 200;
+  if(dv == 1) return 128;
+  return 0;
+}
 
+int green(int dv)
+{
+  if(dv == 0) return 0;
+  if(dv == 1) return 128;
+  return 200;
+}
+
+int blue(int dv)
+{
+  return 0;
+}
 
 
 /* This function runs once per frame, and is the heart of the program. */
@@ -229,6 +255,8 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);  
 
+    mk_text(title, 20, 20, 1, 0, 0, 0);
+
     cJSON* elements = cJSON_GetObjectItem(obj, "elements");
     int num_elms = cJSON_GetArraySize(elements);
 
@@ -237,9 +265,12 @@ SDL_AppResult SDL_AppIterate(void *appstate)
       if(!state[i]) continue;
 
       if(state[i] != 2)
-        SDL_SetRenderDrawColor(renderer, 48 + 157 * (state[i] == 3), 48 + 157 * (state[i] == 1), 48, SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(renderer, 48 + 157 * (state[i] == 3), 48+ 157 * (state[i] == 3), 48 + 157 * (state[i] == 1), SDL_ALPHA_OPAQUE);
       else
-        SDL_SetRenderDrawColor(renderer, 40,40,40, SDL_ALPHA_OPAQUE);
+      {
+        int dv = get_deviation(i);
+        SDL_SetRenderDrawColor(renderer, red(dv),green(dv),blue(dv), SDL_ALPHA_OPAQUE);
+      }
       
       cJSON* item = cJSON_GetArrayItem(elements, i);
       cJSON* members = cJSON_GetObjectItem(item, "members");
@@ -269,7 +300,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
         } 
       }
     }
-
     
 
     for(int i = 0; i<num_sent; i++)
@@ -277,26 +307,9 @@ SDL_AppResult SDL_AppIterate(void *appstate)
       int id = sent_regions[i];
       int dv = deviation[i];
       char buf[255];
-      sprintf(buf, "%s. %d", grph.nodes[id].name, dv);
-      int r = 0, g = 0, b = 0;
-      switch (dv) {
-        case 0:
-          r = 200;
-          g = 0;
-          b = 0;
-          break;
-        case 1:
-          r = 128;
-          g = 128;
-          b = 0;
-          break;
-        case 2:
-          r = 0;
-          g = 200;
-          b = 0;
-          break;
-      }
-      mk_text(buf, W - 10, 40 + 40 * i, 0, r,g,b);
+      sprintf(buf, "%d. %s", (i+1), grph.nodes[id].name);
+
+      mk_text(buf, W - 20, 40 + 40 * i, 0, red(dv),green(dv),blue(dv));
 
     }
 
@@ -397,6 +410,7 @@ void destroy_text(Text* text)
 void draw_text(Text* text, int x, int y)
 { 
   if (!text->text_texture) return;
+  if(text->text[0] == '\0') return;
 
   SDL_FRect rect;
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -425,12 +439,14 @@ void on_selected_region(int region)
 {
   state[region] = 2;
   sent_regions[num_sent] = region;
-  deviation[num_sent++] = classify_node(&grph, region, solution->nodes, solution->len);
+  deviation[num_sent++] = classify_node(&grph, region, solution.nodes, solution.len);
 
   // check if winning
+  
   Path user_solution;
-  masked_bfs(user_solution, &grph, start_node_index, goal_node_index, state); 
-  if(user_solution)win();
+  masked_bfs(&user_solution, &grph, start_node_index, goal_node_index, state); 
+  if(user_solution.len != 0)win();
+
 }
 
 void on_subtmitted_answer()
@@ -461,4 +477,14 @@ void mk_text(const char* txt, int x, int y, int align_left, int r, int g, int b)
 void win()
 {
   won = true;
+}
+
+int get_deviation(int index)
+{
+  for(int i = 0; i<grph.node_len-2; i++) 
+  {
+    if(sent_regions[i] == index)
+      return deviation[i];
+  }
+  return -1;
 }
