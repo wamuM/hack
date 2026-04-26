@@ -31,7 +31,7 @@ int startsWith(const char* s1, const char* s2){
 }
 
 int populate(char** strs, int* indx, graph* g, int node_index, int* filled, int max){
-    strs[(*filled)++] = g->nodes[node_index].name;
+    strs[(*filled)] = g->nodes[node_index].name;
     indx[(*filled)++] = node_index;
     // Return true if done
     return (*filled) >= max;

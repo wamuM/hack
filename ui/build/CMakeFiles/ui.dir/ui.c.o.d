@@ -89,8 +89,7 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/include/x86_64-linux-gnu/curl/header.h \
  /usr/include/x86_64-linux-gnu/curl/websockets.h \
  /usr/include/x86_64-linux-gnu/curl/typecheck-gcc.h \
- /usr/local/include/SDL3/SDL_render.h \
- /usr/local/include/SDL3/SDL_stdinc.h \
+ /usr/local/include/SDL3/SDL_init.h /usr/local/include/SDL3/SDL_stdinc.h \
  /usr/local/include/SDL3/SDL_platform_defines.h /usr/include/string.h \
  /usr/include/strings.h /usr/include/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -102,7 +101,6 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
  /usr/local/include/SDL3/SDL_begin_code.h \
  /usr/local/include/SDL3/SDL_close_code.h \
- /usr/local/include/SDL3/SDL_blendmode.h \
  /usr/local/include/SDL3/SDL_error.h /usr/local/include/SDL3/SDL_events.h \
  /usr/local/include/SDL3/SDL_audio.h /usr/local/include/SDL3/SDL_endian.h \
  /usr/local/include/SDL3/SDL_mutex.h /usr/local/include/SDL3/SDL_atomic.h \
@@ -111,8 +109,10 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_iostream.h \
  /usr/local/include/SDL3/SDL_camera.h \
  /usr/local/include/SDL3/SDL_pixels.h \
- /usr/local/include/SDL3/SDL_surface.h /usr/local/include/SDL3/SDL_rect.h \
- /usr/local/include/SDL3/SDL_gamepad.h /usr/local/include/SDL3/SDL_guid.h \
+ /usr/local/include/SDL3/SDL_surface.h \
+ /usr/local/include/SDL3/SDL_blendmode.h \
+ /usr/local/include/SDL3/SDL_rect.h /usr/local/include/SDL3/SDL_gamepad.h \
+ /usr/local/include/SDL3/SDL_guid.h \
  /usr/local/include/SDL3/SDL_joystick.h \
  /usr/local/include/SDL3/SDL_power.h /usr/local/include/SDL3/SDL_sensor.h \
  /usr/local/include/SDL3/SDL_keyboard.h \
@@ -120,8 +120,8 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_scancode.h \
  /usr/local/include/SDL3/SDL_video.h /usr/local/include/SDL3/SDL_mouse.h \
  /usr/local/include/SDL3/SDL_pen.h /usr/local/include/SDL3/SDL_touch.h \
- /usr/local/include/SDL3/SDL_gpu.h /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/local/include/SDL3/SDL_render.h /usr/local/include/SDL3/SDL_gpu.h \
+ /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
@@ -140,7 +140,7 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_filesystem.h \
  /usr/local/include/SDL3/SDL_haptic.h \
  /usr/local/include/SDL3/SDL_hidapi.h /usr/local/include/SDL3/SDL_hints.h \
- /usr/local/include/SDL3/SDL_init.h /usr/local/include/SDL3/SDL_loadso.h \
+ /usr/local/include/SDL3/SDL_loadso.h \
  /usr/local/include/SDL3/SDL_locale.h /usr/local/include/SDL3/SDL_log.h \
  /usr/local/include/SDL3/SDL_messagebox.h \
  /usr/local/include/SDL3/SDL_metal.h /usr/local/include/SDL3/SDL_misc.h \
