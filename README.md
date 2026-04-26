@@ -1,4 +1,4 @@
-# GeoPath
+# Generalized Trable
 
 A geography-based puzzle game written in C. Given a start region and a goal region, the player must find the correct route by naming the intermediate regions that connect them. The game works at any administrative level — countries, provinces, comarques, districts — by fetching real boundary data from the OpenStreetMap Overpass API.
 
@@ -11,6 +11,30 @@ The game builds a graph where each node is an administrative region and each edg
 - **Wrong** — the region has no direct connection to the path.
 
 Border data is fetched once from the Overpass API and cached locally, so subsequent runs are instant.
+
+## How I run it
+
+As an example execute the next scriptin the game home folder
+```
+ui/build$ ./ui ISO3166-1 FR 2 4 en
+```
+
+You can also try other examples:
+```
+ISO3166-1 ES 2 4 ca
+ISO3166-1 CN 2 4 ca
+ISO3166-2 ES-CT 4 6 ca
+ISO3166-2 ES-CT 4 7 ca
+```
+
+For consulting if the region exist go to https://overpass-turbo.eu/ and use the next script:
+```
+[out:json][timeout:180];relation[%REGION%]['boundary'='administrative']['admin_level'='%REGION ADMIN LEVEL%'];
+      map_to_area->.countryArea;relation['boundary'='administrative']['admin_level'='REGION SUB-ADMIN LEVEL'](area.countryArea);
+      out geom;
+```
+
+Level guides for all the countries: https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative#Table_:_Admin_level_for_all_countries
 
 ## Project structure
 
@@ -57,7 +81,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 cmake --install .
 
-#Build the main game binary
+# Build the main game binary
 make
 
 # Clean compiled binaries
@@ -71,11 +95,12 @@ Tests live in the `tests/` directory and are run from there.
 ```bash
 cd tests
 
-make test_path       # BFS / path unit tests       (no network required)
-make test_deviation  # Deviation logic unit tests   (no network required)
-make test_graph      # Graph integration test       (requires network or cache)
+make test_path       		  # BFS / path unit tests       
+make test_deviation  		  # Deviation logic unit tests   
+make test_graph      		  # Graph integration test       
+make test_challenge_generator # Random start test
 
-make test            # Run all three suites
+make test            # Run all four suites
 make clean           # Remove test binaries
 ```
 
@@ -92,7 +117,7 @@ cJSON *obj = get_json("'ISO3166-1'='ES'", 2, 7);
 
 The first argument is an OSM tag filter identifying the parent area, the second is its administrative level, and the third is the level of the sub-regions to load as graph nodes.
 
-Common administrative levels in OSM:
+Common administrative levels in OSM (example: in Spain):
 
 | Level | Typical meaning |
 |---|---|
