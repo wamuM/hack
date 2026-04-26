@@ -55,22 +55,12 @@ static int are_adjacent(const graph* g, const char* a_name, const char* b_name)
 static void test_solution_path_is_valid(const graph* g, const Path* solution)
 {
     check(solution->len > 0, "solution path is not empty");
-
     for (int i = 0; i < solution->len - 1; i++) {
         char msg[256];
-
-        snprintf(
-            msg,
-            sizeof(msg),
-            "path step is valid: %s -> %s",
-            solution->nodes[i].name,
-            solution->nodes[i + 1].name
-        );
-
-        check(
-            are_adjacent(g, solution->nodes[i].name, solution->nodes[i + 1].name),
-            msg
-        );
+        const char *name_a = g->nodes[solution->nodes[i]].name;
+        const char *name_b = g->nodes[solution->nodes[i + 1]].name;
+        snprintf(msg, sizeof(msg), "path step is valid: %s -> %s", name_a, name_b);
+        check(are_adjacent(g, name_a, name_b), msg);
     }
 }
 
@@ -120,12 +110,12 @@ static void test_positive_case(graph* g)
     check(solution.len >= 3, "returned path length satisfies minimum");
 
     if (solution.len > 0) {
-        check(strcmp(solution.nodes[0].name, g->nodes[start].name) == 0,
-            "path starts at selected start comarca");
-        check(strcmp(solution.nodes[solution.len - 1].name, g->nodes[goal].name) == 0,
-            "path ends at selected goal comarca");
-
-        test_solution_path_is_valid(g, &solution);
+		check(strcmp(g->nodes[solution.nodes[0]].name, g->nodes[start].name) == 0,
+      "path starts at selected start comarca");
+		check(strcmp(g->nodes[solution.nodes[solution.len - 1]].name, 
+		g->nodes[goal].name) == 0, "path ends at selected goal comarca");
+        
+		test_solution_path_is_valid(g, &solution);
     }
 
     bfs_free_path(&solution);
@@ -139,20 +129,33 @@ int main(void)
         return 1;
     }
 
-    graph* g = graph_create_from_cjson(root);
-    if (g == NULL) {
-        printf("[FAIL] could not build graph from Catalunya json\n");
-        cJSON_Delete(root);
-        return 1;
-    }
+	graph *g = malloc(sizeof(graph));
+	if (g == NULL) {
+    	printf("Error: could not allocate graph\n");
+    	cJSON_Delete(root);
+    	return 1;
+	}
+	if (graph_create_from_cjson(root, g) != 0) {
+    	printf("Error: could not create graph\n");
+    	free(g);
+    	cJSON_Delete(root);
+    	return 1;
+	}
 
     test_catalog_has_known_comarques(g);
     test_negative_inputs(g);
     test_positive_case(g);
 
-    graph_destroy(g);
-    cJSON_Delete(root);
+	graph *g2 = malloc(sizeof(graph));
+	if (graph_create_from_cjson(root, g2) != 0) {
+    	printf("Error: could not create graph\n");
+    	free(g2);
+    	cJSON_Delete(root);
+    	return 1;
+	}
+    graph_destroy(g2);
 
+// Al final: graph_destroy(g); — esto sí funciona
     if (failures != 0) {
         printf("\n%d check(s) failed.\n", failures);
         return 1;

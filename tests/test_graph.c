@@ -17,6 +17,7 @@
 #include "../cJSON.h"
 #include "../fetcher.h"
 #include "../graph.h"
+#include <stdlib.h>
 
 static int find_node_by_name(graph *g, const char *name)
 {
@@ -90,13 +91,18 @@ int main(void)
         return 1;
     }
 
-    graph *g = graph_create_from_cjson(obj);
-
-    if (g == NULL) {
-        printf("Error: could not create graph\n");
-        cJSON_Delete(obj);
-        return 1;
-    }
+	graph *g = malloc(sizeof(graph));
+	if (g == NULL) {
+    	printf("Error: could not allocate graph\n");
+    	cJSON_Delete(obj);
+    	return 1;
+	}
+	if (graph_create_from_cjson(obj, g) != 0) {
+    	printf("Error: could not create graph\n");
+    	free(g);
+    	cJSON_Delete(obj);
+    	return 1;
+	}
 
     printf("Graph created successfully!\n");
     printf("Number of nodes: %d\n", g->node_len);
@@ -109,8 +115,15 @@ int main(void)
     test_neighbors(g, "Barcelonès",  "Baix Llobregat",    1);
     test_neighbors(g, "Barcelonès",  "Segrià",            0);
 
-    graph_destroy(g);
-    cJSON_Delete(obj);
+	graph *g2 = malloc(sizeof(graph));
+	if (graph_create_from_cjson(obj, g2) != 0) {
+    	printf("Error: could not create graph\n");
+    	free(g2);
+    	cJSON_Delete(obj);
+    	return 1;
+	}
+    graph_destroy(g2);
+	cJSON_Delete(obj);
 
     return 0;
 }
