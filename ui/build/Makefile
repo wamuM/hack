@@ -201,6 +201,30 @@ home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.c.s
 .PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.c.s
 
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.o: home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.i: home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.s: home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/deviation.c.s
+
 home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o: home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
 .PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o
 
@@ -315,6 +339,9 @@ help:
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.o"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.i"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/challenge_generator.s"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/deviation.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/deviation.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/deviation.s"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.i"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.s"

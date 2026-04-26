@@ -101,7 +101,7 @@ int *get_neighbors(const graph *g, int index, int *out_count)
 /* -------------------------------------------------------------------------
  * BFS
  * ------------------------------------------------------------------------- */
-void _bfs(Path* result, graph *g, int start, int goal, int useMask, int* mask)
+void bfs_core(Path* result, graph *g, int start, int goal, int useMask, int* mask)
 {
     result->nodes = NULL;
     result->len   = 0;
@@ -197,10 +197,10 @@ void _bfs(Path* result, graph *g, int start, int goal, int useMask, int* mask)
     result->len   = path_len;
 }
 void bfs(Path* result, graph *g, int start, int goal){
-    _bfs(result, g, start, goal, 0, NULL);
+    bfs_core(result, g, start, goal, 0, NULL);
 }
 void masked_bfs(Path* result, graph *g, int start, int goal, int* mask){
-    _bfs(result, g, start, goal, 1, mask);
+    bfs_core(result, g, start, goal, 1, mask);
 }
 /* -------------------------------------------------------------------------
  * bfs_free_path

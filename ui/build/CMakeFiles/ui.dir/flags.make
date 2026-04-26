@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = 
 
-C_FLAGS = -g
+C_FLAGS = -g -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes
 
