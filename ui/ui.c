@@ -67,7 +67,7 @@ static int suggestion_len;
 static char* suggestion_str[MAX_AUTOCOMPLETE];
 static int suggestion_index[MAX_AUTOCOMPLETE];
 
-#define W 1400
+#define W 1500
 #define H 900
 
 float minlon = 1000;
@@ -156,7 +156,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
      scl = fmin(
         W / (maxlon-minlon) * 0.95,
-        H / (maxlat-minlat) * 0.9
+        H / (maxlat-minlat) * 0.8
         );
 
      printf("%f, %f, %f\n", tx, ty, scl);
@@ -308,15 +308,15 @@ SDL_AppResult SDL_AppIterate(void *appstate)
       }
     }
     
-
-    for(int i = 0; i<num_sent; i++)
+    int j = 0;
+    for(int i = num_sent -1 ; i>=0 && j <= 20; i--, j++)
     {
       int id = sent_regions[i];
       int dv = deviation[i];
       char buf[255];
       sprintf(buf, "%d. %s", (i+1), grph.nodes[id].name);
 
-      mk_text(buf, W - 20, 40 + 40 * i, 0, red(dv),green(dv),blue(dv));
+      mk_text(buf, W - 50, H - 40 * j-60, 0, red(dv),green(dv),blue(dv));
 
     }
 
