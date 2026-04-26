@@ -52,7 +52,6 @@ cJSON* get_json(const char* region, int admin_level, int admin_level2)
       "map_to_area->.countryArea;relation['boundary'='administrative']['admin_level'='%d'](area.countryArea);"
       "out geom;", region, admin_level, admin_level2);
     
-  char *encoded_query = curl_easy_escape(curl, query, 0);
   char cache_file[2048];
   sprintf(cache_file, "cache/%s_%d_%d.json", region, admin_level, admin_level2);
 

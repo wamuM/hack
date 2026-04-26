@@ -20,16 +20,16 @@ int generate_random_start_goal(graph* g, int min_path_node_count, int* start, in
             continue;
         }
 
-        Path path = path(g, a, b);
+        Path candidate = bfs(g, a, b);
 
-        if (path.len >= min_path_node_count) {
+        if (candidate.len >= min_path_node_count) {
             *start = a;
             *goal = b;
-            *solution = path;  // caller must free it
+            *solution = candidate;  // caller must free it
             return 0;
         }
 
-        path_free_path(&path);
+        bfs_free_path(&candidate);
     }
 
     return -1;
