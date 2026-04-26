@@ -510,7 +510,7 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/include/x86_64-linux-gnu/curl/header.h \
   /usr/include/x86_64-linux-gnu/curl/websockets.h \
   /usr/include/x86_64-linux-gnu/curl/typecheck-gcc.h \
-  /usr/local/include/SDL3/SDL_render.h \
+  /usr/local/include/SDL3/SDL_init.h \
   /usr/local/include/SDL3/SDL_stdinc.h \
   /usr/local/include/SDL3/SDL_platform_defines.h \
   /usr/include/string.h \
@@ -526,7 +526,6 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
   /usr/local/include/SDL3/SDL_begin_code.h \
   /usr/local/include/SDL3/SDL_close_code.h \
-  /usr/local/include/SDL3/SDL_blendmode.h \
   /usr/local/include/SDL3/SDL_error.h \
   /usr/local/include/SDL3/SDL_events.h \
   /usr/local/include/SDL3/SDL_audio.h \
@@ -539,6 +538,7 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_camera.h \
   /usr/local/include/SDL3/SDL_pixels.h \
   /usr/local/include/SDL3/SDL_surface.h \
+  /usr/local/include/SDL3/SDL_blendmode.h \
   /usr/local/include/SDL3/SDL_rect.h \
   /usr/local/include/SDL3/SDL_gamepad.h \
   /usr/local/include/SDL3/SDL_guid.h \
@@ -552,6 +552,7 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_mouse.h \
   /usr/local/include/SDL3/SDL_pen.h \
   /usr/local/include/SDL3/SDL_touch.h \
+  /usr/local/include/SDL3/SDL_render.h \
   /usr/local/include/SDL3/SDL_gpu.h \
   /usr/include/math.h \
   /usr/include/x86_64-linux-gnu/bits/math-vector.h \
@@ -578,7 +579,6 @@ CMakeFiles/ui.dir/ui.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/ui/ui.c 
   /usr/local/include/SDL3/SDL_haptic.h \
   /usr/local/include/SDL3/SDL_hidapi.h \
   /usr/local/include/SDL3/SDL_hints.h \
-  /usr/local/include/SDL3/SDL_init.h \
   /usr/local/include/SDL3/SDL_loadso.h \
   /usr/local/include/SDL3/SDL_locale.h \
   /usr/local/include/SDL3/SDL_log.h \

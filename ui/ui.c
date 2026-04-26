@@ -1,12 +1,9 @@
-/*
- * Simple SDL3 code to visualize the quad splitting and integrating process
- * Only one .poly file at a time
- */
-
 #include "../fetcher.h"
+#include <SDL3/SDL_init.h>
 #include <SDL3/SDL_render.h>
 #include <linux/limits.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
@@ -34,7 +31,13 @@ struct Text
   char text[INPUT_BUFFER_SIZE];
 };
 
+void update_texture(Text* text, int r, int g, int b);
+void draw_text_no_bg(Text* text, int x, int y);
+
 #define GAP 10
+
+void win();
+static bool won = false;
 
 int* state;
 graph grph; 
@@ -48,6 +51,7 @@ int* deviation;
 int num_sent = 0;
 
 static TTF_Font *font = NULL;
+static TTF_Font *win_font = NULL;
 static Text input_text; 
 static Text tmp_txt;
 
@@ -153,7 +157,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
     // Load a font (ensure this file exists in your directory!)
     font = TTF_OpenFont("../font2.ttf", 24);
-    if (!font) {
+    win_font = TTF_OpenFont("../font.ttf", 84);
+    if (!font || !win_font) {
         SDL_Log("Failed to load font: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
@@ -166,6 +171,15 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
+    }
+
+    if(won)
+    {
+      if (event->type == SDL_EVENT_KEY_DOWN) 
+        if (event->key.key == SDLK_SPACE) 
+          return SDL_APP_SUCCESS; 
+
+      return SDL_APP_CONTINUE;
     }
 
     // Handle Text Input
@@ -203,6 +217,9 @@ int max(int a, int b)
 {
   return a < b ? b : a;
 }
+
+
+
 
 /* This function runs once per frame, and is the heart of the program. */
 SDL_AppResult SDL_AppIterate(void *appstate)
@@ -293,6 +310,30 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     for(int i = 0; i<suggestion_len; i++)
       draw_text(&suggestions[i], 50, 50 + 50 * (i+1));
 
+    if(won)
+    {
+
+      sprintf(tmp_txt.text, "Press <space> to exit");
+      update_texture(&tmp_txt, 0, 0, 0);
+      draw_text(&tmp_txt, W/2-tmp_txt.text_w/2, H/2);
+
+
+      sprintf(tmp_txt.text, "You WON!!!");
+      SDL_Color black = {0, 0, 0, 255};
+    if (tmp_txt.text_texture) SDL_DestroyTexture(tmp_txt.text_texture);
+
+    // Create a surface from text
+    SDL_Surface *surf = TTF_RenderText_Blended(win_font, tmp_txt.text, 0, black);
+    
+    // Create texture from surface
+    tmp_txt.text_texture = SDL_CreateTextureFromSurface(renderer, surf);
+    tmp_txt.text_w = surf->w;
+    tmp_txt.text_h = surf->h;
+    
+    SDL_DestroySurface(surf);
+      draw_text_no_bg(&tmp_txt, W/2-tmp_txt.text_w/2, H/2-100);
+    }
+
 
     SDL_RenderPresent(renderer);  /* put it all on the screen! */
 
@@ -310,6 +351,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
     destroy_text(&suggestions[i]);
   
   if (font) TTF_CloseFont(font);
+  if (win_font) TTF_CloseFont(win_font);
   TTF_Quit();
 }
 
@@ -369,13 +411,31 @@ void draw_text(Text* text, int x, int y)
   
 }
 
+
+void draw_text_no_bg(Text* text, int x, int y)
+{ 
+  if (!text->text_texture) return;
+
+  SDL_FRect dst = { x, y, (float)text->text_w, (float)text->text_h };
+  SDL_RenderTexture(renderer, text->text_texture, NULL, &dst);
+  
+}
+
 void on_selected_region(int region)
 {
   state[region] = 2;
   sent_regions[num_sent] = region;
-  deviation[num_sent++] = rand()%3;
-  // TODO: update_deviation(deviation, sent_regions, optimal)
-  
+  deviation[num_sent++] = classify_node(&grph, region, solution->nodes, solution->len);
+
+  // check if winning
+  areYouWinningSon = 1;
+  for(int i = 0; i < solution->len; ++i){
+    if(state[solution->nodes[i]] == 0){
+        areYouWinningSon = 0;
+        break;
+    }
+  }
+  if(areYouWinningSon)win();
 }
 
 void on_subtmitted_answer()
@@ -387,6 +447,7 @@ void on_subtmitted_answer()
     input_text.text_w = 0;
     on_input_changed();
     // Select region
+
     on_selected_region(suggestion_index[0]);
   }
 }
@@ -400,4 +461,9 @@ void mk_text(const char* txt, int x, int y, int align_left, int r, int g, int b)
   else
     draw_text(&tmp_txt, x-tmp_txt.text_w, y);
 
+}
+
+void win()
+{
+  won = true;
 }
