@@ -1,6 +1,7 @@
 #include "graph.h"
 #include "cJSON.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,13 +18,16 @@ static int is_relation(cJSON* element)
            strcmp(cJSON_GetStringValue(type), "relation") == 0;
 }
 
-static char* get_relation_name(cJSON* element)
+static char* get_relation_name(cJSON* element, char* lang)
 {
     cJSON* tags = cJSON_GetObjectItem(element, "tags");
     cJSON* name = NULL;
 
+    char localised_name[50];
+    sprintf(localised_name, "name:%s", lang);
+
     if (cJSON_IsObject(tags)) {
-        name = cJSON_GetObjectItem(tags, "name:ca");
+        name = cJSON_GetObjectItem(tags, localised_name);
 
         if (!cJSON_IsString(name)) {
             name = cJSON_GetObjectItem(tags, "name");
@@ -182,7 +186,7 @@ void graph_destroy(graph* g)
     free(g);
 }
 
-int graph_create_from_cjson(cJSON* root, graph* g)
+int graph_create_from_cjson(cJSON* root, graph* g, char* lang)
 {
     if (root == NULL) {
         return 1;
@@ -241,7 +245,7 @@ int graph_create_from_cjson(cJSON* root, graph* g)
 
         n->incidence_list = NULL;
         n->incidence_cnt = 0;
-        n->name = get_relation_name(element);
+        n->name = get_relation_name(element, lang);
 
         if (n->name == NULL) {
             free_border_refs(borders, relation_count);

@@ -86,6 +86,8 @@ char title[300];
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
+    srand ( time(NULL) );
+
     SDL_SetAppMetadata("Generalised Travle", "1.0", "");
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -121,7 +123,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     printf("%d\n", num_elms);
 
     state = (int *) calloc(num_elms, sizeof(int));
-    if(graph_create_from_cjson(obj, &grph))
+    if(graph_create_from_cjson(obj, &grph, argv[5]))
     {
       printf("Graph creation failed!");
       exit(1);

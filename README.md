@@ -34,6 +34,13 @@ For consulting if the region exist go to https://overpass-turbo.eu/ and use the 
       out geom;
 ```
 
+For example
+
+```
+[out:json][timeout:180];relation['ISO3166-2'='ES-CT']['boundary'='administrative']['admin_level'='4'];
+map_to_area->.countryArea;relation['boundary'='administrative']['admin_level'='7'](area.countryArea);out geom;
+```
+
 Level guides for all the countries: https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative#Table_:_Admin_level_for_all_countries
 
 ## Project structure
