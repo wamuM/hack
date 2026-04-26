@@ -182,16 +182,16 @@ void graph_destroy(graph* g)
     free(g);
 }
 
-graph* graph_create_from_cjson(cJSON* root)
+int graph_create_from_cjson(cJSON* root, graph* g)
 {
     if (root == NULL) {
-        return NULL;
+        return 1;
     }
 
     cJSON* elements = cJSON_GetObjectItem(root, "elements");
 
     if (!cJSON_IsArray(elements)) {
-        return NULL;
+        return 1;
     }
 
     int total = cJSON_GetArraySize(elements);
@@ -206,12 +206,11 @@ graph* graph_create_from_cjson(cJSON* root)
     }
 
     if (relation_count == 0) {
-        return NULL;
+        return 1;
     }
 
-    graph* g = malloc(sizeof(graph));
     if (g == NULL) {
-        return NULL;
+        return 1;
     }
 
     g->node_len = relation_count;
@@ -219,13 +218,13 @@ graph* graph_create_from_cjson(cJSON* root)
 
     if (g->nodes == NULL) {
         free(g);
-        return NULL;
+        return 1;
     }
 
     BorderRefs* borders = calloc(relation_count, sizeof(BorderRefs));
     if (borders == NULL) {
         graph_destroy(g);
-        return NULL;
+        return 1;
     }
 
     int node_index = 0;
@@ -247,13 +246,13 @@ graph* graph_create_from_cjson(cJSON* root)
         if (n->name == NULL) {
             free_border_refs(borders, relation_count);
             graph_destroy(g);
-            return NULL;
+            return 1;
         }
 
         if (collect_outer_refs(element, &borders[node_index]) != 0) {
             free_border_refs(borders, relation_count);
             graph_destroy(g);
-            return NULL;
+            return 1;
         }
 
         node_index++;
@@ -263,10 +262,10 @@ graph* graph_create_from_cjson(cJSON* root)
     if (build_edges_from_refs(g, borders) != 0) {
         free_border_refs(borders, relation_count);
         graph_destroy(g);
-        return NULL;
+        return 1;
     }
 
     free_border_refs(borders, relation_count);
 
-    return g;
+    return 0;
 }

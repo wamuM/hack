@@ -4,7 +4,7 @@
 #include "cJSON.h"
 
 // Builds a graph from an already parsed Overpass API JSON.
-graph* graph_create_from_cjson(cJSON* root);
+int graph_create_from_cjson(cJSON* root, graph* g);
 
 // Frees all memory used by the graph.
 void graph_destroy(graph* g);

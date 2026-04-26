@@ -16,6 +16,9 @@
 #include <stdio.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "../path.h" 
+#include "../graph.h"
+#include "../auto_completion.h"
+//#include "../challenge_generator.h"
 
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
@@ -104,8 +107,12 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     printf("%d\n", num_elms);
 
     state = (int *) calloc(num_elms, sizeof(int));
-    grph = graph_create_from_cjson(obj);
-    generate_random_start_goal(grph,3, start_node_index, goal_node_index, solution);
+    if(graph_create_from_cjson(obj, &grph))
+    {
+      printf("Graph creation failed!");
+      exit(1);
+    }
+    //generate_random_start_goal(&grph,3, &start_node_index, &goal_node_index, solution);
     state[start_node_index] = 1;
     state[goal_node_index] = 3;
 
@@ -315,11 +322,11 @@ void update_texture(Text* text)
 
 void update_complition()
 {
-  for(int i = 0; i<strlen(input_text.text) && i < MAX_AUTOCOMPLETE; i++)
-    sprintf(suggestions[i].text, "Hola %d" , i);
+  char* suggestion_str[MAX_AUTOCOMPLETE];;
+  suggestion_len = generate_suggestions(input_text.text, &grph, suggestion_str, state, MAX_AUTOCOMPLETE);
 
-  suggestion_len = strlen(input_text.text);
-  if(suggestion_len > MAX_AUTOCOMPLETE) suggestion_len = MAX_AUTOCOMPLETE;
+  for(int i = 0; i<suggestion_len; i++)
+    sprintf(suggestions[i].text, "%s" , suggestion_str[i]);
 }
 
 void on_input_changed()

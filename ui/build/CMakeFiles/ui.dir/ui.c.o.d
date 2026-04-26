@@ -153,4 +153,8 @@ CMakeFiles/ui.dir/ui.c.o: \
  /usr/local/include/SDL3/SDL_oldnames.h \
  /usr/local/include/SDL3/SDL_main.h \
  /usr/local/include/SDL3/SDL_main_impl.h \
- /usr/local/include/SDL3_ttf/SDL_ttf.h
+ /usr/local/include/SDL3_ttf/SDL_ttf.h \
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../path.h \
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../node.h \
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../graph.h \
+ /home/gerard/Documents/uni/hackupc2026/c/hack/ui/../auto_completion.h

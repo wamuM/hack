@@ -129,6 +129,30 @@ ui/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/build
 .PHONY : ui/fast
 
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.o: home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.i: home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.s: home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s
+
 home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o: home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
 .PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o
 
@@ -177,6 +201,54 @@ home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s
 .PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.s
 
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.o: home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.i: home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.s: home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s
+
+home/gerard/Documents/uni/hackupc2026/c/hack/path.o: home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.o
+
+# target to build an object file
+home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o
+
+home/gerard/Documents/uni/hackupc2026/c/hack/path.i: home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.i
+
+# target to preprocess a source file
+home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i
+
+home/gerard/Documents/uni/hackupc2026/c/hack/path.s: home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.s
+
+# target to generate assembly for a file
+home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ui.dir/build.make CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s
+.PHONY : home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s
+
 ui.o: ui.c.o
 .PHONY : ui.o
 
@@ -210,12 +282,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ui"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.s"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.o"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.i"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.s"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.o"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.i"
 	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.s"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/graph.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/graph.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/graph.s"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/path.o"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/path.i"
+	@echo "... home/gerard/Documents/uni/hackupc2026/c/hack/path.s"
 	@echo "... ui.o"
 	@echo "... ui.i"
 	@echo "... ui.s"

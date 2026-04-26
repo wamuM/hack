@@ -111,11 +111,56 @@ CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s: cmake_
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.s
 
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o: CMakeFiles/ui.dir/flags.make
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/path.c
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o: CMakeFiles/ui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o -MF CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o.d -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o -c /home/gerard/Documents/uni/hackupc2026/c/hack/path.c
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gerard/Documents/uni/hackupc2026/c/hack/path.c > CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.i
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gerard/Documents/uni/hackupc2026/c/hack/path.c -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.s
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o: CMakeFiles/ui.dir/flags.make
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/graph.c
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o: CMakeFiles/ui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o -MF CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o.d -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o -c /home/gerard/Documents/uni/hackupc2026/c/hack/graph.c
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gerard/Documents/uni/hackupc2026/c/hack/graph.c > CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.i
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gerard/Documents/uni/hackupc2026/c/hack/graph.c -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.s
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o: CMakeFiles/ui.dir/flags.make
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o: /home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o: CMakeFiles/ui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o -MF CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o.d -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o -c /home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c > CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.i
+
+CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c -o CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.s
+
 # Object files for target ui
 ui_OBJECTS = \
 "CMakeFiles/ui.dir/ui.c.o" \
 "CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o" \
-"CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o"
+"CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o" \
+"CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o" \
+"CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o" \
+"CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o"
 
 # External object files for target ui
 ui_EXTERNAL_OBJECTS =
@@ -123,11 +168,14 @@ ui_EXTERNAL_OBJECTS =
 ui: CMakeFiles/ui.dir/ui.c.o
 ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/fetcher.c.o
 ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/cJSON.c.o
+ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/path.c.o
+ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/graph.c.o
+ui: CMakeFiles/ui.dir/home/gerard/Documents/uni/hackupc2026/c/hack/auto_completion.c.o
 ui: CMakeFiles/ui.dir/build.make
 ui: /usr/local/lib/libSDL3_ttf.so.0.3.0
 ui: /usr/local/lib/libSDL3.so.0.5.0
 ui: CMakeFiles/ui.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable ui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable ui"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ui.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
