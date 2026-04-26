@@ -2,7 +2,7 @@
  * test_graph.c
  *
  * Integration test for graph.c + fetcher.c.
- * Fetches the real Overpass data for Spain (admin_level 2->7) and validates
+ * Fetches the real Overpass data for Catalunya (admin_level 4->7) and validates
  * the resulting graph structure and known adjacencies.
  *
  * Lives in tests/ — source files are one level up in ../.
@@ -82,8 +82,8 @@ static void validate_graph(graph *g)
 
 int main(void)
 {
-    /* Fetch Spain (ISO3166-1=ES, admin_level 2) -> comarques (admin_level 7) */
-    cJSON *obj = get_json("'ISO3166-1'='ES'", 2, 7);
+    /* Fetch Catalunya (admin_level 4) -> comarques (admin_level 7) */
+    cJSON *obj = get_json("'name'='Catalunya'", 4, 7);
 
     if (obj == NULL) {
         printf("Error: could not fetch JSON\n");

@@ -6,12 +6,15 @@
 #   make test_path      — build & run BFS / path tests
 #   make test_deviation — build & run deviation classification tests
 #   make test_graph     — build & run graph integration test (needs network)
-#   make test           — run all three suites in sequence
+#   make test_challenge_generator — build & run challenge generator integration test
+#   make tests          — run all four suites in sequence
 #   make clean          — remove compiled binaries
 # =============================================================================
 
 CC      = gcc
 CFLAGS  = -std=c11 -D_POSIX_C_SOURCE=200809L -Wall -Wextra -Wpedantic -g
+
+.DEFAULT_GOAL := tests
 
 SRCDIR  = ..
 
@@ -52,12 +55,25 @@ test_graph: test_graph.c $(SRCDIR)/fetcher.c $(COMMON_SRC)
 	@echo ""
 	@echo "Running test_graph..."
 	@echo "---------------------"
-	./test_graph
+	cd $(SRCDIR) && ./tests/test_graph
 
 # --------------------------------------------------------------------------
-test: test_path test_deviation test_graph
+# test_challenge_generator — integration with real Catalunya comarca graph
+# --------------------------------------------------------------------------
+test_challenge_generator: test_challenge_generator.c $(SRCDIR)/challenge_generator.c $(SRCDIR)/path.c $(SRCDIR)/fetcher.c $(COMMON_SRC)
+	$(CC) $(CFLAGS) $(INCLUDES) -o test_challenge_generator \
+	    test_challenge_generator.c $(SRCDIR)/challenge_generator.c $(SRCDIR)/path.c $(SRCDIR)/fetcher.c $(COMMON_SRC) -lcurl
+	@echo ""
+	@echo "Running test_challenge_generator..."
+	@echo "-----------------------------------"
+	cd $(SRCDIR) && ./tests/test_challenge_generator
+
+# --------------------------------------------------------------------------
+tests: test_path test_deviation test_graph test_challenge_generator
+
+test: tests
 
 clean:
-	rm -f test_path test_deviation test_graph
+	rm -f test_path test_deviation test_graph test_challenge_generator
 
-.PHONY: test_path test_deviation test_graph test clean
+.PHONY: test_path test_deviation test_graph test_challenge_generator tests test clean
