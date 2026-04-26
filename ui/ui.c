@@ -23,8 +23,7 @@
 #define INPUT_BUFFER_SIZE 128
 #define MAX_AUTOCOMPLETE 10
 
-
-void mk_text(const char* txt, int x, int y, int align_left);
+void mk_text(const char* txt, int x, int y, int align_left, int r, int g, int b);
 void on_subtmitted_answer();
 
 typedef struct Text Text;
@@ -213,16 +212,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);  
 
-  /*  SDL_FRect rect;
-    SDL_SetRenderDrawColor(renderer, 100, 200, 100, SDL_ALPHA_OPAQUE);
-     
-    rect.x = W/2 + scl * (tx + minlon);
-    rect.y = H/2 - scl * (maxlat-ty);
-    rect.w = scl * (maxlon  - minlon);
-    rect.h = scl * (maxlat  - minlat);
-  
-    SDL_RenderFillRect(renderer, &rect);*/
-
     cJSON* elements = cJSON_GetObjectItem(obj, "elements");
     int num_elms = cJSON_GetArraySize(elements);
 
@@ -271,8 +260,26 @@ SDL_AppResult SDL_AppIterate(void *appstate)
       int id = sent_regions[i];
       int dv = deviation[i];
       char buf[255];
-      sprintf(buf, "%d. %d", id, dv);
-      mk_text(buf, W - 10, 40 + 40 * i, 0);
+      sprintf(buf, "%s. %d", grph.nodes[id].name, dv);
+      int r = 0, g = 0, b = 0;
+      switch (dv) {
+        case 0:
+          r = 200;
+          g = 0;
+          b = 0;
+          break;
+        case 1:
+          r = 128;
+          g = 128;
+          b = 0;
+          break;
+        case 2:
+          r = 0;
+          g = 200;
+          b = 0;
+          break;
+      }
+      mk_text(buf, W - 10, 40 + 40 * i, 0, r,g,b);
 
     }
 
@@ -306,9 +313,9 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
   TTF_Quit();
 }
 
-void update_texture(Text* text)
+void update_texture(Text* text, int r, int g, int b)
 {
-    SDL_Color black = {0, 0, 0, 255};
+    SDL_Color black = {r, g, b, 255};
     if (text->text_texture) SDL_DestroyTexture(text->text_texture);
     if(strlen(text->text) == 0) return; 
 
@@ -334,9 +341,9 @@ void update_complition()
 void on_input_changed()
 {
   update_complition();
-  update_texture(&input_text);
+  update_texture(&input_text,0,0,0);
   for(int i = 0; i<suggestion_len; i++)
-    update_texture(&suggestions[i]);
+    update_texture(&suggestions[i],0,0,0);
 }
 
 void destroy_text(Text* text)
@@ -366,7 +373,7 @@ void on_selected_region(int region)
 {
   state[region] = 2;
   sent_regions[num_sent] = region;
-  deviation[num_sent++] = rand()%10;
+  deviation[num_sent++] = rand()%3;
   // TODO: update_deviation(deviation, sent_regions, optimal)
   
 }
@@ -384,10 +391,10 @@ void on_subtmitted_answer()
   }
 }
 
-void mk_text(const char* txt, int x, int y, int align_left)
+void mk_text(const char* txt, int x, int y, int align_left, int r, int g, int b)
 {
   sprintf(tmp_txt.text, "%s", txt);
-  update_texture(&tmp_txt);
+  update_texture(&tmp_txt, r, g, b);
   if(align_left)
     draw_text(&tmp_txt, x, y);
   else
