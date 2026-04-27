@@ -1,3 +1,0 @@
-/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles/ui.dir
-/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles/edit_cache.dir
-/home/gerard/Documents/uni/hackupc2026/c/hack/ui/build/CMakeFiles/rebuild_cache.dir
